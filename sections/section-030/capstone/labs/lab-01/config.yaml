@@ -1,0 +1,51 @@
+# Lock Down A Release Project
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-102-capstone-030"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm, Harbor 2.15.4 and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-102-capstone-030-setup"
+      description: "Creates the starting state the task works from"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until every Harbor component reports healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-enforcement"
+      description: "The project release refuses artifacts without a Cosign signature"
+      type: "file"
+      source: "validation/validate-enforcement.sh"
+    - name: "validate-team-signatures"
+      description: "6.14.1 and 6.15.0 verify with the team key and pull"
+      type: "file"
+      source: "validation/validate-team-signatures.sh"
+    - name: "validate-debug-refused"
+      description: "The unsigned debug tag stays in place and is refused"
+      type: "file"
+      source: "validation/validate-debug-refused.sh"
+
+teardown:
+  keepCluster: false

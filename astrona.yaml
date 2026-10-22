@@ -1,0 +1,333 @@
+# Course manifest for ATS102 - Content Trust, Vulnerability Scanning & SBOMs (Harbor).
+#
+# One entry per section under `modules:`. Each section lists, in order: its
+# README, then for each module the landing page (course.md), its parts
+# (course-0N-*.md), and right after the part a lab tests, the lab's
+# question.md reading and the `type: lab` entry. The module's summary page
+# comes last. The section capstone closes the section. Playgrounds are not
+# listed: the landing page's playground marker shows them. solution.md is
+# never listed.
+#
+# Every `path:` is relative to this file.
+
+training:
+  id: ATS102
+  title: "Harbor: Content Trust, Vulnerability Scanning & SBOMs"
+  maturity: draft
+  description: >
+    Training material covering the Content Trust, Vulnerability Scanning &
+    SBOMs domain of the Harbor training path: scanning artifacts with the
+    built-in Trivy adapter, scan on push and scheduled scans, Software Bills
+    of Materials in the SPDX format, signing with Cosign and refusing
+    unsigned artifacts, preventing vulnerable artifacts from being pulled,
+    and CVE allowlists with an expiry. Each module pairs a layered reader
+    with an ungraded hands-on playground and a graded practice lab. Each
+    section closes with an integration capstone.
+    Written for Harbor v2.15.4, the harbor CLI v0.0.27 and Cosign 3.1.4.
+
+  certification:
+    name: Harbor
+    code: HARBOR
+    provider: Astrona
+    domain: Content Trust, Vulnerability Scanning & SBOMs
+    weight: 25
+
+modules:
+
+  - id: module-intro
+    title: "Introduction"
+    description: >
+      Start here. What this course trains you to do, how it is laid out, how
+      to get your machine ready with the astrona command-line tool, how the
+      content is written and checked, who maintains it, and how to report a
+      mistake.
+
+    content:
+      - type: reading
+        title: Introduction
+        path: sections/intro/README.md
+      - type: reading
+        title: "Welcome To The Course"
+        path: sections/intro/course-01-welcome.md
+      - type: reading
+        title: "Get Your Machine Ready"
+        path: sections/intro/course-02-get-your-machine-ready.md
+      - type: reading
+        title: "How This Course Is Made"
+        path: sections/intro/course-03-how-this-course-is-made.md
+
+  - id: module-010
+    title: "Vulnerability Scanning With Trivy"
+    description: >
+      How Harbor scans artifacts with its Trivy adapter, how to start a scan
+      and read the vulnerability report from the command line, and how to
+      scan every artifact automatically on push and on a schedule.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-010/README.md
+
+      - type: reading
+        title: "Scan Artifacts For Vulnerabilities With Trivy"
+        path: sections/section-010/module-01/course.md
+      - type: reading
+        title: "How Harbor Scans Artifacts With Trivy"
+        path: sections/section-010/module-01/course-01-how-harbor-scans-with-trivy.md
+      - type: reading
+        title: "Scanning An Artifact And Reading The Report"
+        path: sections/section-010/module-01/course-02-scanning-and-reading-a-report.md
+      - type: reading
+        title: "Scan On Push And Scheduled Scans"
+        path: sections/section-010/module-01/course-03-scan-on-push-and-scheduled-scans.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Scan Every Pushed Artifact Lab"
+        path: sections/section-010/module-01/labs/lab-01
+        difficulty: beginner
+        estimated_duration: 20m
+        topic: scanning
+        task_kind: build
+        tags: [trivy, scan-on-push, scan-all, vulnerability-report, harbor-cli, regctl]
+        learning_goals:
+          - Turn on scan on push for a project and set a daily scan of all artifacts
+          - Push a new artifact and prove Harbor scanned it without a manual request
+          - Read the vulnerability report of an artifact from the Harbor API
+        resources:
+          - name: "Vulnerability scanning"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/
+          - name: "Scan individual artifacts"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/scan-individual-artifact/
+          - name: "Schedule scans"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/schedule-scans/
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-01/course-04-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-010/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Get A Successful Scan For Every Release Capstone"
+        path: sections/section-010/capstone/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 30m
+        topic: scanning
+        task_kind: troubleshooting
+        tags: [trivy, scanner, scan-on-push, vulnerability-report, harbor-api, harbor-cli]
+        learning_goals:
+          - Find why every scan in a project ends in an error
+          - Bring the Trivy adapter back and scan every artifact again
+          - Prove that new artifacts are scanned on push
+        resources:
+          - name: "Vulnerability scanning"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/
+          - name: "Connect Harbor to additional vulnerability scanners"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/pluggable-scanners/
+
+  - id: module-020
+    title: "Software Bills Of Materials"
+    description: >
+      What a Software Bill of Materials is, how Harbor generates one in the
+      SPDX format and stores it as an accessory, and how to generate,
+      download and read it, by hand and on every push.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-020/README.md
+
+      - type: reading
+        title: "Generate And Read Software Bills Of Materials"
+        path: sections/section-020/module-01/course.md
+      - type: reading
+        title: "What An SBOM Is And How Harbor Stores It"
+        path: sections/section-020/module-01/course-01-what-an-sbom-is.md
+      - type: reading
+        title: "Generating, Downloading And Reading An SBOM"
+        path: sections/section-020/module-01/course-02-generating-and-reading-an-sbom.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Generate An SBOM For Every Pushed Artifact Lab"
+        path: sections/section-020/module-01/labs/lab-01
+        difficulty: beginner
+        estimated_duration: 20m
+        topic: sbom
+        task_kind: build
+        tags: [sbom, spdx, accessory, harbor-api, regctl, digest]
+        learning_goals:
+          - Turn on automatic SBOM generation for a project through the Harbor API
+          - Generate an SBOM by hand for an artifact that was pushed before
+          - Download an SBOM accessory and read its packages
+        resources:
+          - name: "SBOM generation"
+            url: https://goharbor.io/docs/2.15.0/administration/sbom-integration/
+          - name: "Project configuration"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-01/course-03-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-020/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Ship A Release With A Report And An SBOM Capstone"
+        path: sections/section-020/capstone/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 30m
+        topic: sbom
+        task_kind: troubleshooting
+        tags: [sbom, spdx, scan-on-push, vulnerability-report, accessory, harbor-api]
+        learning_goals:
+          - Give every artifact in a project a vulnerability report and an SBOM
+          - Make Harbor produce both automatically for every new artifact
+          - Prove the result with a new push that gets both without a manual request
+        resources:
+          - name: "SBOM generation"
+            url: https://goharbor.io/docs/2.15.0/administration/sbom-integration/
+          - name: "Vulnerability scanning"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/
+
+  - id: module-030
+    title: "Signing With Cosign And Enforcing Signatures"
+    description: >
+      How Harbor stores signatures as accessories, why Notary v1 is gone,
+      signing and verifying an artifact with a Cosign key pair, and making a
+      project refuse every artifact that has no Cosign signature.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-030/README.md
+
+      - type: reading
+        title: "Sign Artifacts With Cosign And Enforce Signatures"
+        path: sections/section-030/module-01/course.md
+      - type: reading
+        title: "Signatures, Accessories And Where Notary Went"
+        path: sections/section-030/module-01/course-01-signatures-and-accessories.md
+      - type: reading
+        title: "Signing And Verifying With Cosign"
+        path: sections/section-030/module-01/course-02-signing-with-cosign.md
+      - type: reading
+        title: "Making A Project Refuse Unsigned Artifacts"
+        path: sections/section-030/module-01/course-03-enforcing-signatures.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Allow Only Signed Releases Lab"
+        path: sections/section-030/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: signing
+        task_kind: build
+        tags: [cosign, cosign-key-pair, signature-enforcement, content-trust, accessory, digest]
+        learning_goals:
+          - Create a Cosign key pair and sign one release artifact by its digest
+          - Make the project refuse every artifact without a Cosign signature
+          - Prove that the signed release pulls and verifies and the unsigned candidate is refused
+        resources:
+          - name: "Sign artifacts with Cosign or Notation"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/sign-images/
+          - name: "Implementing content trust"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/implementing-content-trust/
+          - name: "Signing containers with Cosign"
+            url: https://docs.sigstore.dev/cosign/signing/signing_with_containers/
+      - type: reading
+        title: Summary
+        path: sections/section-030/module-01/course-04-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-030/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Lock Down A Release Project Capstone"
+        path: sections/section-030/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 35m
+        topic: signing
+        task_kind: troubleshooting
+        tags: [cosign, signature-enforcement, content-trust, cosign-key-pair, digest, harbor-cli]
+        learning_goals:
+          - Find which releases are signed with a key the team does not trust
+          - Sign every release with the team key and turn signature enforcement on
+          - Prove that every release verifies with the team key and an unsigned tag is refused
+        resources:
+          - name: "Implementing content trust"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/implementing-content-trust/
+          - name: "Verifying signatures with Cosign"
+            url: https://docs.sigstore.dev/cosign/verifying/verify/
+
+  - id: module-040
+    title: "Blocking Vulnerable Artifacts And CVE Allowlists"
+    description: >
+      Making a project refuse pulls of artifacts with vulnerabilities at or
+      above a severity, why unscanned artifacts are refused too, and CVE
+      allowlists at system and project level with an expiry.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-040/README.md
+
+      - type: reading
+        title: "Stop Vulnerable Artifacts From Being Pulled"
+        path: sections/section-040/module-01/course.md
+      - type: reading
+        title: "Preventing Vulnerable Images From Running"
+        path: sections/section-040/module-01/course-01-preventing-vulnerable-images.md
+      - type: reading
+        title: "CVE Allowlists With An Expiry"
+        path: sections/section-040/module-01/course-02-cve-allowlists.md
+      - type: reading
+        title: Question
+        path: sections/section-040/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Block High Risk, Allow A Reviewed Exception Lab"
+        path: sections/section-040/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: deployment-security
+        task_kind: build
+        tags: [prevent-vulnerable, severity, cve-allowlist, allowlist-expiry, vulnerability-report, harbor-api]
+        learning_goals:
+          - Refuse pulls of artifacts with High or Critical vulnerabilities in two projects
+          - Write a project CVE allowlist that covers exactly one reviewed artifact and expires
+          - Prove the policy with one refused pull and one allowed pull of the same image
+        resources:
+          - name: "Deployment security"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/deployment-security/
+          - name: "Configure a per-project CVE allowlist"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/configure-project-allowlist/
+          - name: "Configure the system-wide CVE allowlist"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/configure-system-allowlist/
+      - type: reading
+        title: Summary
+        path: sections/section-040/module-01/course-03-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-040/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Tighten A Project That Lets Everything Through Capstone"
+        path: sections/section-040/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 30m
+        topic: deployment-security
+        task_kind: troubleshooting
+        tags: [prevent-vulnerable, severity, cve-allowlist, allowlist-expiry, harbor-cli, harbor-api]
+        learning_goals:
+          - Find why a project lets a vulnerable artifact through
+          - Stop the project from reusing a blanket system allowlist and give the system list an expiry
+          - Prove that the vulnerable artifact is refused and clean artifacts still pull
+        resources:
+          - name: "Deployment security"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/deployment-security/
+          - name: "Configure the system-wide CVE allowlist"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/configure-system-allowlist/

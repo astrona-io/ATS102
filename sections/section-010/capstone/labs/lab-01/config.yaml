@@ -1,0 +1,51 @@
+# Get A Successful Scan For Every Release
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-102-capstone-010"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm, Harbor 2.15.4 and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-102-capstone-010-setup"
+      description: "Creates the starting state the task works from"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until every Harbor component reports healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-trivy-running"
+      description: "The Trivy adapter runs and Harbor reports it healthy"
+      type: "file"
+      source: "validation/validate-trivy-running.sh"
+    - name: "validate-release-scanned"
+      description: "Every artifact in release/podinfo has a successful scan"
+      type: "file"
+      source: "validation/validate-release-scanned.sh"
+    - name: "validate-scan-on-push"
+      description: "A new push to release is scanned without a manual request"
+      type: "file"
+      source: "validation/validate-scan-on-push.sh"
+
+teardown:
+  keepCluster: false

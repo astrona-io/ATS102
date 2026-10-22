@@ -1,0 +1,51 @@
+# Allow Only Signed Releases
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-102-lab-030-01"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm, Harbor 2.15.4 and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-102-lab-030-01-setup"
+      description: "Creates the starting state the task works from"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until every Harbor component reports healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-enforcement"
+      description: "The project release refuses artifacts without a Cosign signature"
+      type: "file"
+      source: "validation/validate-enforcement.sh"
+    - name: "validate-release-signed"
+      description: "podinfo 6.15.0 is signed with the key pair in /root and pulls"
+      type: "file"
+      source: "validation/validate-release-signed.sh"
+    - name: "validate-candidate-refused"
+      description: "The unsigned candidate 6.14.1-rc stays unsigned and is refused"
+      type: "file"
+      source: "validation/validate-candidate-refused.sh"
+
+teardown:
+  keepCluster: false

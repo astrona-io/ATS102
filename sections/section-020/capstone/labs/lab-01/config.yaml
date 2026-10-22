@@ -1,0 +1,51 @@
+# Ship A Release With A Report And An SBOM
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-102-capstone-020"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm, Harbor 2.15.4 and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-102-capstone-020-setup"
+      description: "Creates the starting state the task works from"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until every Harbor component reports healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-release-scanned"
+      description: "Every artifact in release/podinfo has a successful scan"
+      type: "file"
+      source: "validation/validate-release-scanned.sh"
+    - name: "validate-release-sboms"
+      description: "Every artifact in release/podinfo has an SBOM"
+      type: "file"
+      source: "validation/validate-release-sboms.sh"
+    - name: "validate-on-push"
+      description: "A new push to release gets a scan and an SBOM without a manual request"
+      type: "file"
+      source: "validation/validate-on-push.sh"
+
+teardown:
+  keepCluster: false
