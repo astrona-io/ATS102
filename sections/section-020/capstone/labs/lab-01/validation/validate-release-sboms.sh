@@ -55,8 +55,11 @@ copy_image() {
 
 # ensure_project NAME: creates a private project if it does not exist.
 ensure_project() {
+  # A POST that answers 409 found the project already there; only fail when
+  # the project still does not exist afterwards.
   harbor_api GET "/projects/$1" >/dev/null 2>&1 || \
-    harbor_api POST /projects "{\"project_name\":\"$1\",\"metadata\":{\"public\":\"false\"}}" >/dev/null
+    harbor_api POST /projects "{\"project_name\":\"$1\",\"metadata\":{\"public\":\"false\"}}" >/dev/null 2>&1 || \
+    harbor_api GET "/projects/$1" >/dev/null
 }
 
 # set_project_meta NAME JSON: merges metadata keys into a project.
@@ -80,7 +83,9 @@ sbom_status() {
 }
 
 # start_scan / start_sbom PROJECT REPO REF: asks Harbor for a report.
-start_scan() { harbor_api POST "/projects/$1/repositories/$2/artifacts/$3/scan" >/dev/null; }
+# start_scan ignores 409: a scan of that artifact is already running, and the
+# caller waits for its report with wait_for_report anyway.
+start_scan() { harbor_api POST "/projects/$1/repositories/$2/artifacts/$3/scan" >/dev/null 2>&1 || true; }
 start_sbom() { harbor_api POST "/projects/$1/repositories/$2/artifacts/$3/scan" '{"scan_type":"sbom"}' >/dev/null; }
 
 # wait_for_report PROJECT REPO REF scan|sbom [SECONDS]: prints the final status.
