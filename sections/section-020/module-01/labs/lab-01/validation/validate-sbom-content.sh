@@ -160,7 +160,7 @@ for ref in 6.14.1 6.15.0; do
   [ "$status" = "Success" ] || fail "inventory/podinfo:$ref has no SBOM (status: $status)."
   has_accessory inventory podinfo "$ref" sbom.harbor || fail "inventory/podinfo:$ref has no accessory of type sbom.harbor."
   digest="$(artifact_json inventory podinfo "$ref" | wjq -r '.sbom_overview.sbom_digest')"
-  packages="$(ws regctl artifact get -m application/spdx+json "$HARBOR_HOST/inventory/podinfo@$digest" | \
+  packages="$(ws regctl artifact get "$HARBOR_HOST/inventory/podinfo@$digest" | \
     wjq -r 'if (.spdxVersion // "" | startswith("SPDX-")) then (.packages | length) else 0 end')"
   [ "${packages:-0}" -gt 0 ] 2>/dev/null || fail "the SBOM of $ref is not an SPDX document with packages."
 done

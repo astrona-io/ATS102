@@ -63,7 +63,7 @@ Follow its `sbom_overview` with the same command as in step 3, with `6.15.0`, un
 
 ```sh
 SBOM_DIGEST=$(api "$API/projects/inventory/repositories/podinfo/artifacts/6.14.1?with_sbom_overview=true" | jq -r '.sbom_overview.sbom_digest')
-regctl artifact get -m application/spdx+json "harbor.localtest.me:8443/inventory/podinfo@$SBOM_DIGEST" > podinfo-6.14.1.spdx.json
+regctl artifact get "harbor.localtest.me:8443/inventory/podinfo@$SBOM_DIGEST" > podinfo-6.14.1.spdx.json
 jq '{spdxVersion, packages: (.packages | length)}' podinfo-6.14.1.spdx.json
 ```
 

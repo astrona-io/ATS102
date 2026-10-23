@@ -26,7 +26,7 @@ api() { curl -fsS -u admin:Harbor12345 -H 'Content-Type: application/json' "$@";
 get_sbom() {
   regctl registry login harbor.localtest.me:8443 -u admin -p Harbor12345 >/dev/null 2>&1
   sbom_digest=$(api "$API/projects/inventory/repositories/podinfo/artifacts/$1?with_sbom_overview=true" | jq -r '.sbom_overview.sbom_digest')
-  regctl artifact get -m application/spdx+json "harbor.localtest.me:8443/inventory/podinfo@$sbom_digest" > "$1.spdx.json"
+  regctl artifact get "harbor.localtest.me:8443/inventory/podinfo@$sbom_digest" > "$1.spdx.json"
 }
 ```
 

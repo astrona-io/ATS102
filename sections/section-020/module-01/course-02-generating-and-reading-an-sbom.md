@@ -33,12 +33,14 @@ api "$API/projects/inventory/repositories/podinfo/artifacts/6.15.0?with_sbom_ove
 
 ## Download the SPDX document
 
-The SBOM accessory is an OCI artifact in the same repository, so any OCI client can fetch it by its digest. `regctl artifact get` downloads the content of an artifact, and `-m` picks the layer by its media type, here `application/spdx+json`. Save the digest in a variable first, then download the document to a file:
+The SBOM accessory is an OCI artifact in the same repository, so any OCI client can fetch it by its digest. `regctl artifact get` downloads the content of an artifact. The SBOM accessory has a single layer, so no layer filter is needed. Its media type is the generic `application/vnd.oci.image.layer.v1.tar`, even though the content is SPDX JSON, so a filter `-m application/spdx+json` would find nothing.
+
+Save the digest in a variable first, then download the document to a file:
 
 ```sh
 regctl registry login harbor.localtest.me:8443 -u admin -p Harbor12345
 SBOM_DIGEST=$(api "$API/projects/inventory/repositories/podinfo/artifacts/6.15.0?with_sbom_overview=true" | jq -r '.sbom_overview.sbom_digest')
-regctl artifact get -m application/spdx+json "harbor.localtest.me:8443/inventory/podinfo@$SBOM_DIGEST" > podinfo-6.15.0.spdx.json
+regctl artifact get "harbor.localtest.me:8443/inventory/podinfo@$SBOM_DIGEST" > podinfo-6.15.0.spdx.json
 ```
 
 The file `podinfo-6.15.0.spdx.json` now holds the whole SPDX document. Look at its header first:
