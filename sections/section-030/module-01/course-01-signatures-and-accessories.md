@@ -34,7 +34,7 @@ This course uses Cosign with a key pair. **Keyless signing**, Cosign's default w
 
 By default, Cosign also uploads a record of every signature to **Rekor**, Sigstore's public transparency log: an append-only log anyone can search. That record lets others check when a signature was made. It also publishes the name of your registry and image to the world.
 
-In a private environment, you sign with `--tlog-upload=false` so that nothing leaves your network, and you verify with `--insecure-ignore-tlog=true` because there is no log entry to check. The word "insecure" is Cosign's warning that nobody outside can audit the signature. The signature itself is just as strong.
+In a private environment, you sign with `--use-signing-config=false --tlog-upload=false` so that nothing leaves your network, and you verify with `--insecure-ignore-tlog=true` because there is no log entry to check. The word "insecure" is Cosign's warning that nobody outside can audit the signature. The signature itself is just as strong.
 
 ## The project settings that enforce signatures
 

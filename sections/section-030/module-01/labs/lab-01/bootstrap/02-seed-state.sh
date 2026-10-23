@@ -144,7 +144,7 @@ sign_digest() {
   local digest repo="${3%%:*}"
   digest="$(image_digest "$3")"
   cosign_login
-  ws env COSIGN_PASSWORD="$2" cosign sign --yes --key "$1/cosign.key" --tlog-upload=false \
+  ws env COSIGN_PASSWORD="$2" cosign sign --yes --key "$1/cosign.key" --use-signing-config=false --tlog-upload=false \
     "$HARBOR_HOST/$repo@$digest" >/dev/null
 }
 

@@ -30,7 +30,7 @@ Sign Cosign and `regctl` in, find the digest, and sign it without the transparen
 cosign login harbor.localtest.me:8443 -u admin -p Harbor12345
 regctl registry login harbor.localtest.me:8443 -u admin -p Harbor12345
 DIGEST=$(regctl image digest harbor.localtest.me:8443/release/podinfo:6.15.0)
-cosign sign --yes --key cosign.key --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$DIGEST"
+cosign sign --yes --key cosign.key --use-signing-config=false --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$DIGEST"
 ```
 
 Verify it with the public key:
@@ -72,7 +72,7 @@ astrona submit -c sections/section-030/module-01/labs/lab-01
 | --- | --- |
 | Sign every tag in the project | The candidate becomes pullable, which is exactly what the team wanted to prevent |
 | Delete the candidate | The task keeps it; the point is that the policy refuses it |
-| Sign without `--tlog-upload=false` | Cosign tries to upload the signature details to the public Rekor log |
+| Sign without `--use-signing-config=false --tlog-upload=false` | Cosign tries to upload the signature details to the public Rekor log |
 | Turn on Notation enforcement instead | Harbor then wants Notation signatures, and the Cosign-signed release is refused too |
 
 ## Common mistakes

@@ -40,10 +40,10 @@ DIGEST=$(regctl image digest harbor.localtest.me:8443/release/podinfo:6.15.0)
 echo "$DIGEST"
 ```
 
-The output is one line starting with `sha256:`. Now sign that digest. `--key` names the private key, `--tlog-upload=false` keeps the signature out of the public transparency log, and `--yes` skips the confirmation prompt:
+The output is one line starting with `sha256:`. Now sign that digest. `--key` names the private key, `--tlog-upload=false` keeps the signature out of the public transparency log, and `--yes` skips the confirmation prompt. Cosign v3 reads the public instance's signing configuration by default and refuses `--tlog-upload=false` while it does, so `--use-signing-config=false` turns that configuration off first:
 
 ```sh
-cosign sign --yes --key cosign.key --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$DIGEST"
+cosign sign --yes --key cosign.key --use-signing-config=false --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$DIGEST"
 ```
 
 Cosign reads the password from `COSIGN_PASSWORD`, signs the digest, and pushes the signature to the same repository. Cosign 3 stores it as an OCI 1.1 artifact that refers to its subject, in the Sigstore bundle format.
@@ -85,5 +85,5 @@ You can now create a key pair, sign an artifact by its digest without the public
 > [!WARNING]
 > - **Signing by tag.** Cosign resolves it, but the record should show the digest you meant. Sign `repository@sha256:...`.
 > - **Forgetting `cosign login`.** Cosign pushes the signature to Harbor and needs push rights to the project.
-> - **Verifying without `--insecure-ignore-tlog=true` after signing with `--tlog-upload=false`.** Cosign then looks for a log entry that does not exist and fails.
+> - **Verifying without `--insecure-ignore-tlog=true` after signing with `--use-signing-config=false --tlog-upload=false`.** Cosign then looks for a log entry that does not exist and fails.
 > - **Losing the password or the private key.** Nobody can sign with the key pair again; create a new one and sign again.

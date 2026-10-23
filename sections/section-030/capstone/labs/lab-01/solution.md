@@ -34,7 +34,7 @@ regctl registry login harbor.localtest.me:8443 -u admin -p Harbor12345
 export COSIGN_PASSWORD='team-signing-password'
 for tag in 6.14.1 6.15.0; do
   digest=$(regctl image digest "harbor.localtest.me:8443/release/podinfo:$tag")
-  cosign sign --yes --key /root/team/cosign.key --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$digest"
+  cosign sign --yes --key /root/team/cosign.key --use-signing-config=false --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$digest"
 done
 ```
 

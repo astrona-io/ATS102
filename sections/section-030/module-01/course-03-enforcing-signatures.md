@@ -48,7 +48,7 @@ So the order of a release process does not matter for signing. You can turn enfo
 cd /root
 export COSIGN_PASSWORD='lab-signing-password'
 cosign login harbor.localtest.me:8443 -u admin -p Harbor12345
-cosign sign --yes --key cosign.key --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$(regctl image digest harbor.localtest.me:8443/release/podinfo:6.14.1-rc)"
+cosign sign --yes --key cosign.key --use-signing-config=false --tlog-upload=false "harbor.localtest.me:8443/release/podinfo@$(regctl image digest harbor.localtest.me:8443/release/podinfo:6.14.1-rc)"
 regctl manifest get harbor.localtest.me:8443/release/podinfo:6.14.1-rc > /dev/null && echo "6.14.1-rc pulled"
 ```
 
