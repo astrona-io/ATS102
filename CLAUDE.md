@@ -368,6 +368,14 @@ and never leave it. The repository never holds a private key.
 
 ### Environment facts the text must respect
 
+- **Harbor images are amd64 only (seen on a live run, 2026-10-23).** On an
+  arm64 machine (Apple silicon) every `goharbor/*` image runs under
+  emulation. The bundled Valkey (Redis) crashes there with a segmentation
+  fault, so every values file replaces it with the multi-architecture
+  `docker.io/valkey/valkey:8.1.10-alpine` (`redis.internal.image`). Keep
+  that override in every new values file; the other components work under
+  emulation. Upgrades must keep it too: use `--reuse-values` or a values
+  file that contains it.
 - Everything in the ATS100 `CLAUDE.md` "Environment facts" holds: one address
   `https://harbor.localtest.me:8443`, the CoreDNS `rewrite stop` block (never
   the one-line `rewrite name` form), the workstation trusts Harbor's CA,
