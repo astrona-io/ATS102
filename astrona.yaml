@@ -29,8 +29,6 @@ training:
     name: Harbor
     code: HARBOR
     provider: Astrona
-    domain: Content Trust, Vulnerability Scanning & SBOMs
-    weight: 25
 
 modules:
 
