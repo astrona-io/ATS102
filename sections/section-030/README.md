@@ -16,6 +16,8 @@ This section shows how Harbor works with signatures. You sign an artifact with *
 - What a passing `cosign verify` proves and what it leaves open.
 - Signature annotations, and more than one signer on one artifact.
 - Attestations, key hygiene, keyless signing and key rotation.
+- Signing and verifying with Notation, a trust policy, and the Harbor setting that requires a Notation signature.
+- Replicating a signed artifact between projects and proving that its signature and SBOM arrived.
 
 ## The learning path
 
@@ -36,6 +38,26 @@ The module starts at its landing page, which also launches the playground. The p
 2. Annotations And More Than One Signer, followed by the lab **Add A Second Signature With An Annotation**
 3. Attestations
 4. Keys, Keyless Signing And Rotation
+5. Summary
+
+### 3. Sign And Verify With Notation
+
+The module starts at its landing page, which also launches the playground. The playground holds Harbor with the project `release` and an unsigned `podinfo:6.15.0`, and the `notation` tool in the workstation.
+
+1. Notation And Cosign Side By Side
+2. Keys, Certificates And Signing
+3. Trust Policies And Verification, followed by the lab **Sign A Release With Notation And Verify It**
+4. Enforcing Notation Signatures In Harbor
+5. Summary
+
+### 4. Replicate Signed Artifacts Between Projects
+
+The module starts at its landing page, which also launches the playground. The playground holds Harbor with the project `staging` and a signed `podinfo:6.15.0` that carries an SBOM, and an empty project `prod`.
+
+1. Endpoints And Rules
+2. Filters And Triggers
+3. Signatures And SBOMs In Replication, followed by the lab **Replicate A Signed Release To Production**
+4. Reading Executions And Failures
 5. Summary
 
 ## Section capstone: Lock Down A Release Project

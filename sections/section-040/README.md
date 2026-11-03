@@ -16,6 +16,7 @@ Real teams also need exceptions. A finding may not apply to how the image is use
 - Pull-only robot accounts with an expiry, and how to refresh or disable them.
 - Reading refusals by HTTP status: 401, 403, 404 and 412.
 - Tag immutability rules, and a pipeline gate script that fails closed.
+- Retention policies, dry runs, and how deletion relates to immutable tags and garbage collection.
 
 ## The learning path
 
@@ -35,6 +36,16 @@ The module starts at its landing page, which also launches the playground. The p
 2. Using A Robot And Reading Refusals
 3. Immutable Tags, followed by the lab **Create A Pull-Only Robot And Protect Release Tags**
 4. A Pipeline Gate
+5. Summary
+
+### 3. Keep Storage Under Control With Retention
+
+The module starts at its landing page, which also launches the playground. The playground holds Harbor with the project `inventory` and `podinfo` at three tags pushed in order, without a retention policy.
+
+1. How Retention Rules Work
+2. Dry Runs And Executions
+3. Applying A Policy To A Project, followed by the lab **Keep The Two Newest Tags With A Retention Policy**
+4. Retention With Immutability And Garbage Collection
 5. Summary
 
 ## Section capstone: Tighten A Project That Lets Everything Through

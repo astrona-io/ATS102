@@ -379,6 +379,90 @@ modules:
         pass_score: 70
 
       - type: reading
+        title: "Sign And Verify With Notation"
+        path: sections/section-030/module-03/course.md
+      - type: reading
+        title: "Notation And Cosign Side By Side"
+        path: sections/section-030/module-03/course-01-notation-and-cosign-side-by-side.md
+      - type: reading
+        title: "Keys, Certificates And Signing"
+        path: sections/section-030/module-03/course-02-keys-certificates-and-signing.md
+      - type: reading
+        title: "Trust Policies And Verification"
+        path: sections/section-030/module-03/course-03-trust-policies-and-verification.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-03/labs/lab-01/question.md
+      - type: lab
+        title: "Sign A Release With Notation And Verify It Lab"
+        path: sections/section-030/module-03/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: signing
+        task_kind: build
+        tags: [notation, content-trust, accessory, digest, signature-enforcement, regctl]
+        learning_goals:
+          - Create a test key and certificate and sign an artifact with Notation
+          - Import a trust policy that trusts only that certificate
+          - Verify the signature with notation verify
+        resources:
+          - name: "Sign artifacts with Cosign or Notation"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/sign-images/
+      - type: reading
+        title: "Enforcing Notation Signatures In Harbor"
+        path: sections/section-030/module-03/course-04-enforcing-notation-signatures-in-harbor.md
+      - type: reading
+        title: "Summary"
+        path: sections/section-030/module-03/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Sign And Verify With Notation"
+        path: sections/section-030/quiz-module-03.yaml
+        pass_score: 70
+
+      - type: reading
+        title: "Replicate Signed Artifacts Between Projects"
+        path: sections/section-030/module-04/course.md
+      - type: reading
+        title: "Endpoints And Rules"
+        path: sections/section-030/module-04/course-01-endpoints-and-rules.md
+      - type: reading
+        title: "Filters And Triggers"
+        path: sections/section-030/module-04/course-02-filters-and-triggers.md
+      - type: reading
+        title: "Signatures And SBOMs In Replication"
+        path: sections/section-030/module-04/course-03-signatures-and-sboms-in-replication.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-04/labs/lab-01/question.md
+      - type: lab
+        title: "Replicate A Signed Release To Production Lab"
+        path: sections/section-030/module-04/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 30m
+        topic: signing
+        task_kind: build
+        tags: [accessory, cosign, sbom, digest, harbor-api, regctl]
+        learning_goals:
+          - Register a destination endpoint and create a replication rule
+          - Run the rule and compare the digest in both projects
+          - Prove that the signature and the SBOM arrived with the artifact
+        resources:
+          - name: "Create replication rules"
+            url: https://goharbor.io/docs/2.15.0/administration/configuring-replication/create-replication-rules/
+          - name: "Create replication endpoints"
+            url: https://goharbor.io/docs/2.15.0/administration/configuring-replication/create-replication-endpoints/
+      - type: reading
+        title: "Reading Executions And Failures"
+        path: sections/section-030/module-04/course-04-reading-executions-and-failures.md
+      - type: reading
+        title: "Summary"
+        path: sections/section-030/module-04/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Replicate Signed Artifacts Between Projects"
+        path: sections/section-030/quiz-module-04.yaml
+        pass_score: 70
+
+      - type: reading
         title: Question
         path: sections/section-030/capstone/labs/lab-01/question.md
       - type: lab
@@ -491,6 +575,47 @@ modules:
       - type: quiz
         title: "Knowledge Check: Robot Accounts And Immutable Tags"
         path: sections/section-040/quiz-module-02.yaml
+        pass_score: 70
+
+      - type: reading
+        title: "Keep Storage Under Control With Retention"
+        path: sections/section-040/module-03/course.md
+      - type: reading
+        title: "How Retention Rules Work"
+        path: sections/section-040/module-03/course-01-how-retention-rules-work.md
+      - type: reading
+        title: "Dry Runs And Executions"
+        path: sections/section-040/module-03/course-02-dry-runs-and-executions.md
+      - type: reading
+        title: "Applying A Policy To A Project"
+        path: sections/section-040/module-03/course-03-applying-a-policy-to-a-project.md
+      - type: reading
+        title: Question
+        path: sections/section-040/module-03/labs/lab-01/question.md
+      - type: lab
+        title: "Keep The Two Newest Tags With A Retention Policy Lab"
+        path: sections/section-040/module-03/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: deployment-security
+        task_kind: build
+        tags: [harbor-api, digest, regctl, prevent-vulnerable]
+        learning_goals:
+          - Create a retention rule that keeps the most recently pushed tags
+          - Run the policy and read the result
+          - Show which tags were removed and which remain
+        resources:
+          - name: "Create tag retention rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-retention-rules/
+      - type: reading
+        title: "Retention With Immutability And Garbage Collection"
+        path: sections/section-040/module-03/course-04-retention-with-immutability-and-garbage-collection.md
+      - type: reading
+        title: "Summary"
+        path: sections/section-040/module-03/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Keep Storage Under Control With Retention"
+        path: sections/section-040/quiz-module-03.yaml
         pass_score: 70
 
       - type: reading

@@ -1,0 +1,246 @@
+# Knowledge check for module 03 of section 030. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats102-030-m03
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: module
+  id: section-030-module-03
+  title: Sign And Verify With Notation
+placement:
+  position: after
+  reading: sections/section-030/module-03/course-05-summary.md
+questions:
+- id: ats102-030-m03-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Tell Notation and Cosign apart
+  source_readings:
+  - sections/section-030/module-03/course-01-notation-and-cosign-side-by-side.md
+  prompt: Which Harbor accessory type does a Notation signature have?
+  options:
+  - id: a
+    text: "`signature.cosign`"
+    explanation: Not correct. That is the type of a Cosign signature.
+  - id: b
+    text: "`signature.notation`"
+    explanation: Correct. Harbor labels Notation and Cosign signatures with different
+      types.
+  - id: c
+    text: "`sbom.harbor`"
+    explanation: Not correct. That is an SBOM, not a signature.
+  - id: d
+    text: "`attestation.notation`"
+    explanation: Not correct. Harbor has no such type.
+  correct_option: b
+  explanation: Correct. Harbor labels Notation and Cosign signatures with different
+    types.
+- id: ats102-030-m03-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Say where the trust decision lives
+  source_readings:
+  - sections/section-030/module-03/course-01-notation-and-cosign-side-by-side.md
+  prompt: With Notation, what decides which signatures are valid?
+  options:
+  - id: a
+    text: The `--key` flag on the command line.
+    explanation: Not correct. That is how Cosign is told what to trust.
+  - id: b
+    text: Harbor, when it stores the signature.
+    explanation: Not correct. Harbor stores signatures and does not judge them in
+      the client check.
+  - id: c
+    text: The trust policy and its trust stores.
+    explanation: Correct. The policy names the certificates and the strictness.
+  - id: d
+    text: The tag of the image.
+    explanation: Not correct. Tags say nothing about trust.
+  correct_option: c
+  explanation: Correct. The policy names the certificates and the strictness.
+- id: ats102-030-m03-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Compare the two tools
+  source_readings:
+  - sections/section-030/module-03/course-01-notation-and-cosign-side-by-side.md
+  prompt: Why can Cosign not verify a Notation signature?
+  options:
+  - id: a
+    text: Notation signatures are encrypted.
+    explanation: Not correct. They are signed, not hidden.
+  - id: b
+    text: Harbor deletes them after a day.
+    explanation: Not correct. Harbor keeps them as accessories.
+  - id: c
+    text: Cosign works only with public registries.
+    explanation: Not correct. Cosign works with private registries too.
+  - id: d
+    text: Each tool reads only its own signature format.
+    explanation: Correct. The formats differ, so a tool ignores the other kind.
+  correct_option: d
+  explanation: Correct. The formats differ, so a tool ignores the other kind.
+- id: ats102-030-m03-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Create a test certificate
+  source_readings:
+  - sections/section-030/module-03/course-02-keys-certificates-and-signing.md
+  prompt: Which command makes a test key and a self-signed certificate and sets it
+    as the default?
+  options:
+  - id: a
+    text: "`notation cert generate-test --default release-signer`"
+    explanation: Correct. It also fills a trust store with the certificate.
+  - id: b
+    text: "`notation key create release-signer`"
+    explanation: Not correct. That is not the test command from this module.
+  - id: c
+    text: "`cosign generate-key-pair`"
+    explanation: Not correct. That makes a Cosign key pair.
+  - id: d
+    text: "`notation sign --generate`"
+    explanation: Not correct. There is no such flag.
+  correct_option: a
+  explanation: Correct. It also fills a trust store with the certificate.
+- id: ats102-030-m03-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Sign the right thing
+  source_readings:
+  - sections/section-030/module-03/course-02-keys-certificates-and-signing.md
+  prompt: Why sign the digest and not the tag?
+  options:
+  - id: a
+    text: Tags cannot be signed at all.
+    explanation: Not correct. Notation can sign a tag but warns about it.
+  - id: b
+    text: A tag can move before the signature is made.
+    explanation: Correct. The digest names exactly the image you looked at.
+  - id: c
+    text: Digests are shorter to type.
+    explanation: Not correct. They are longer.
+  - id: d
+    text: Harbor refuses tags.
+    explanation: Not correct. Harbor accepts tags for most operations.
+  correct_option: b
+  explanation: Correct. The digest names exactly the image you looked at.
+- id: ats102-030-m03-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read a signature
+  source_readings:
+  - sections/section-030/module-03/course-02-keys-certificates-and-signing.md
+  prompt: Which command prints the contents of the signatures of an artifact, including
+    the signing time and certificate subject?
+  options:
+  - id: a
+    text: "`notation ls`"
+    explanation: Not correct. It only lists the signature objects.
+  - id: b
+    text: "`notation policy show`"
+    explanation: Not correct. It prints the trust policy.
+  - id: c
+    text: "`notation inspect`"
+    explanation: Correct. `notation ls` lists them, and `inspect` prints what is inside.
+  - id: d
+    text: "`notation login`"
+    explanation: Not correct. It signs in to the registry.
+  correct_option: c
+  explanation: Correct. `notation ls` lists them, and `inspect` prints what is inside.
+- id: ats102-030-m03-q07
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Know what a trust policy holds
+  source_readings:
+  - sections/section-030/module-03/course-03-trust-policies-and-verification.md
+  prompt: Which fields does an entry of a trust policy contain?
+  options:
+  - id: a
+    text: A list of image tags to block.
+    explanation: Not correct. A policy does not block tags.
+  - id: b
+    text: The private key of the signer.
+    explanation: Not correct. Private keys never go in a policy.
+  - id: c
+    text: A Harbor project name and password.
+    explanation: Not correct. Credentials are not part of a policy.
+  - id: d
+    text: Scopes, a verification level, trust stores and trusted identities.
+    explanation: Correct. These four decide which signatures are accepted.
+  correct_option: d
+  explanation: Correct. These four decide which signatures are accepted.
+- id: ats102-030-m03-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Choose a verification level
+  source_readings:
+  - sections/section-030/module-03/course-03-trust-policies-and-verification.md
+  prompt: Which verification level turns the checks off for the repositories in its
+    scope?
+  options:
+  - id: a
+    text: "`skip`"
+    explanation: Correct. Use it only for repositories you deliberately do not check.
+  - id: b
+    text: "`audit`"
+    explanation: Not correct. Audit still enforces integrity and authenticity.
+  - id: c
+    text: "`permissive`"
+    explanation: Not correct. Permissive still enforces most checks.
+  - id: d
+    text: "`strict`"
+    explanation: Not correct. Strict enforces all checks.
+  correct_option: a
+  explanation: Correct. Use it only for repositories you deliberately do not check.
+- id: ats102-030-m03-q09
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Diagnose a failure
+  source_readings:
+  - sections/section-030/module-03/course-03-trust-policies-and-verification.md
+  prompt: A signature exists, but `notation verify` fails. The policy names the trust
+    store `ca:other`, and the certificate is in `ca:release-signer`. What is the cause?
+  options:
+  - id: a
+    text: The signature is corrupt.
+    explanation: Not correct. A corrupt signature is a different failure, and the
+      signature here is fine.
+  - id: b
+    text: The policy trusts a store that does not hold the signing certificate.
+    explanation: Correct. The policy, not the signature alone, decides.
+  - id: c
+    text: Harbor blocks verification.
+    explanation: Not correct. Verification runs in the client.
+  - id: d
+    text: The image has too many layers.
+    explanation: Not correct. Layer count does not matter.
+  correct_option: b
+  explanation: Correct. The policy, not the signature alone, decides.
+- id: ats102-030-m03-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the Harbor refusal
+  source_readings:
+  - sections/section-030/module-03/course-04-enforcing-notation-signatures-in-harbor.md
+  prompt: With `enable_content_trust` on, what does Harbor answer for a pull of an
+    artifact with no Notation signature?
+  options:
+  - id: a
+    text: The status `401`.
+    explanation: Not correct. That means the credentials failed.
+  - id: b
+    text: The status `404`.
+    explanation: Not correct. The artifact exists.
+  - id: c
+    text: The status `412` with a message that the image is not signed.
+    explanation: Correct. It is a policy refusal, not a credential problem.
+  - id: d
+    text: The status `200`, with an empty body.
+    explanation: Not correct. Harbor does not serve the artifact.
+  correct_option: c
+  explanation: Correct. It is a policy refusal, not a credential problem.

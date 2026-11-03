@@ -472,3 +472,140 @@ questions:
     explanation: Not correct. An old result says nothing about the current artifact.
   correct_option: b
   explanation: Correct. A gate must fail closed when it cannot decide.
+- id: ats102-final-q21
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Create a test certificate
+  source_readings:
+  - sections/section-030/module-03/course-02-keys-certificates-and-signing.md
+  prompt: Which command makes a test key and a self-signed certificate and sets it
+    as the default?
+  options:
+  - id: a
+    text: "`notation cert generate-test --default release-signer`"
+    explanation: Correct. It also fills a trust store with the certificate.
+  - id: b
+    text: "`notation key create release-signer`"
+    explanation: Not correct. That is not the test command from this module.
+  - id: c
+    text: "`cosign generate-key-pair`"
+    explanation: Not correct. That makes a Cosign key pair.
+  - id: d
+    text: "`notation sign --generate`"
+    explanation: Not correct. There is no such flag.
+  correct_option: a
+  explanation: Correct. It also fills a trust store with the certificate.
+- id: ats102-final-q22
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Diagnose a failure
+  source_readings:
+  - sections/section-030/module-03/course-03-trust-policies-and-verification.md
+  prompt: A signature exists, but `notation verify` fails. The policy names the trust
+    store `ca:other`, and the certificate is in `ca:release-signer`. What is the cause?
+  options:
+  - id: a
+    text: The signature is corrupt.
+    explanation: Not correct. A corrupt signature is a different failure, and the
+      signature here is fine.
+  - id: b
+    text: The policy trusts a store that does not hold the signing certificate.
+    explanation: Correct. The policy, not the signature alone, decides.
+  - id: c
+    text: Harbor blocks verification.
+    explanation: Not correct. Verification runs in the client.
+  - id: d
+    text: The image has too many layers.
+    explanation: Not correct. Layer count does not matter.
+  correct_option: b
+  explanation: Correct. The policy, not the signature alone, decides.
+- id: ats102-final-q23
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Prove an artifact arrived
+  source_readings:
+  - sections/section-030/module-04/course-03-signatures-and-sboms-in-replication.md
+  prompt: What proves a replicated artifact is identical to the source?
+  options:
+  - id: a
+    text: The tag has the same name.
+    explanation: Not correct. A tag can point at anything.
+  - id: b
+    text: The execution status is `Succeed`.
+    explanation: Not correct. An empty run also succeeds.
+  - id: c
+    text: The size is similar.
+    explanation: Not correct. Similar is not identical.
+  - id: d
+    text: The digest is the same in both projects.
+    explanation: Correct. A digest names the manifest and its layers.
+  correct_option: d
+  explanation: Correct. A digest names the manifest and its layers.
+- id: ats102-final-q24
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Check the accessories
+  source_readings:
+  - sections/section-030/module-04/course-03-signatures-and-sboms-in-replication.md
+  prompt: After a run, `prod/podinfo:6.15.0` exists. What else must you check before
+    you trust it?
+  options:
+  - id: a
+    text: That the signature and the SBOM accessories are there, and that the signature
+      verifies.
+    explanation: Correct. Never assume the accessories arrived.
+  - id: b
+    text: Nothing, the tag is enough.
+    explanation: Not correct. The accessories might be missing.
+  - id: c
+    text: That the source project is empty.
+    explanation: Not correct. The source keeps its artifacts.
+  - id: d
+    text: That the endpoint is insecure.
+    explanation: Not correct. That is a security flaw, not proof.
+  correct_option: a
+  explanation: Correct. Never assume the accessories arrived.
+- id: ats102-final-q25
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Read a rule correctly
+  source_readings:
+  - sections/section-040/module-03/course-01-how-retention-rules-work.md
+  prompt: What does a retention rule name?
+  options:
+  - id: a
+    text: What to delete.
+    explanation: Not correct. That is the common misreading.
+  - id: b
+    text: What to keep.
+    explanation: Correct. What no rule keeps, within scope, is deleted.
+  - id: c
+    text: Which users may pull.
+    explanation: Not correct. Retention is not access control.
+  - id: d
+    text: Which scanner to use.
+    explanation: Not correct. Retention does not choose scanners.
+  correct_option: b
+  explanation: Correct. What no rule keeps, within scope, is deleted.
+- id: ats102-final-q26
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Reclaim space
+  source_readings:
+  - sections/section-040/module-03/course-04-retention-with-immutability-and-garbage-collection.md
+  prompt: Retention deleted old tags, but disk usage did not drop. What must run?
+  options:
+  - id: a
+    text: A second retention run.
+    explanation: Not correct. The artifacts are already gone.
+  - id: b
+    text: A vulnerability scan.
+    explanation: Not correct. Scans do not free blobs.
+  - id: c
+    text: Garbage collection.
+    explanation: Correct. It removes blobs that no artifact refers to.
+  - id: d
+    text: A replication rule.
+    explanation: Not correct. Replication adds copies.
+  correct_option: c
+  explanation: Correct. It removes blobs that no artifact refers to.

@@ -1,0 +1,243 @@
+# Knowledge check for module 04 of section 030. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats102-030-m04
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: module
+  id: section-030-module-04
+  title: Replicate Signed Artifacts Between Projects
+placement:
+  position: after
+  reading: sections/section-030/module-04/course-05-summary.md
+questions:
+- id: ats102-030-m04-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Name the two pieces
+  source_readings:
+  - sections/section-030/module-04/course-01-endpoints-and-rules.md
+  prompt: What two things does a replication setup need?
+  options:
+  - id: a
+    text: A robot account and a webhook.
+    explanation: Not correct. Those are separate features.
+  - id: b
+    text: A registry endpoint and a replication policy.
+    explanation: Correct. The endpoint is the other end, and the policy says what
+      to copy.
+  - id: c
+    text: A retention policy and a label.
+    explanation: Not correct. Neither copies artifacts.
+  - id: d
+    text: A scanner and an SBOM.
+    explanation: Not correct. Those do not copy artifacts.
+  correct_option: b
+  explanation: Correct. The endpoint is the other end, and the policy says what to
+    copy.
+- id: ats102-030-m04-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Set the destination path
+  source_readings:
+  - sections/section-030/module-04/course-01-endpoints-and-rules.md
+  prompt: A rule has `dest_namespace` set to `prod` and `dest_namespace_replace_count`
+    set to 1. Where does `staging/podinfo` land?
+  options:
+  - id: a
+    text: "`prod/staging/podinfo`"
+    explanation: Not correct. That happens with a count of 0.
+  - id: b
+    text: "`staging/prod/podinfo`"
+    explanation: Not correct. The namespace does not go after the source.
+  - id: c
+    text: "`prod/podinfo`"
+    explanation: Correct. The first path level is replaced by the destination namespace.
+  - id: d
+    text: "`staging/podinfo`"
+    explanation: Not correct. The name changes.
+  correct_option: c
+  explanation: Correct. The first path level is replaced by the destination namespace.
+- id: ats102-030-m04-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Handle credentials
+  source_readings:
+  - sections/section-030/module-04/course-01-endpoints-and-rules.md
+  prompt: Which credential should a production endpoint use?
+  options:
+  - id: a
+    text: The administrator login.
+    explanation: Not correct. Only a lab should do that.
+  - id: b
+    text: No credential.
+    explanation: Not correct. Pushing needs rights.
+  - id: c
+    text: The scanner token.
+    explanation: Not correct. It does not grant push rights.
+  - id: d
+    text: A robot account with the least rights.
+    explanation: Correct. An administrator login gives the rule too much power.
+  correct_option: d
+  explanation: Correct. An administrator login gives the rule too much power.
+- id: ats102-030-m04-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Use filters
+  source_readings:
+  - sections/section-030/module-04/course-02-filters-and-triggers.md
+  prompt: Which wildcard matches across path levels in a name filter?
+  options:
+  - id: a
+    text: "`**`"
+    explanation: Correct. The single `*` stops at the path separator.
+  - id: b
+    text: "`*`"
+    explanation: Not correct. It matches within one level.
+  - id: c
+    text: "`?`"
+    explanation: Not correct. It is not the cross-level wildcard.
+  - id: d
+    text: "`#`"
+    explanation: Not correct. It has no meaning in a filter.
+  correct_option: a
+  explanation: Correct. The single `*` stops at the path separator.
+- id: ats102-030-m04-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Choose a trigger
+  source_readings:
+  - sections/section-030/module-04/course-02-filters-and-triggers.md
+  prompt: Which trigger fits promotion that a person approves?
+  options:
+  - id: a
+    text: "`event_based`"
+    explanation: Not correct. It copies every push.
+  - id: b
+    text: "`manual`"
+    explanation: Correct. A person decides when a build earns its place.
+  - id: c
+    text: "`scheduled`"
+    explanation: Not correct. It runs without anyone approving.
+  - id: d
+    text: None of them fit.
+    explanation: Not correct. Manual fits.
+  correct_option: b
+  explanation: Correct. A person decides when a build earns its place.
+- id: ats102-030-m04-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Protect production tags
+  source_readings:
+  - sections/section-030/module-04/course-02-filters-and-triggers.md
+  prompt: What does turning `override` off on a rule do for an existing tag?
+  options:
+  - id: a
+    text: It deletes the existing tag first.
+    explanation: Not correct. Nothing is deleted.
+  - id: b
+    text: It makes the copy fail the whole run.
+    explanation: Not correct. The artifact is skipped.
+  - id: c
+    text: The artifact is skipped, so the tag in production is not replaced.
+    explanation: Correct. This keeps release tags from being replaced by a copy.
+  - id: d
+    text: It signs the artifact again.
+    explanation: Not correct. Replication never signs.
+  correct_option: c
+  explanation: Correct. This keeps release tags from being replaced by a copy.
+- id: ats102-030-m04-q07
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Prove an artifact arrived
+  source_readings:
+  - sections/section-030/module-04/course-03-signatures-and-sboms-in-replication.md
+  prompt: What proves a replicated artifact is identical to the source?
+  options:
+  - id: a
+    text: The tag has the same name.
+    explanation: Not correct. A tag can point at anything.
+  - id: b
+    text: The execution status is `Succeed`.
+    explanation: Not correct. An empty run also succeeds.
+  - id: c
+    text: The size is similar.
+    explanation: Not correct. Similar is not identical.
+  - id: d
+    text: The digest is the same in both projects.
+    explanation: Correct. A digest names the manifest and its layers.
+  correct_option: d
+  explanation: Correct. A digest names the manifest and its layers.
+- id: ats102-030-m04-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Check the accessories
+  source_readings:
+  - sections/section-030/module-04/course-03-signatures-and-sboms-in-replication.md
+  prompt: After a run, `prod/podinfo:6.15.0` exists. What else must you check before
+    you trust it?
+  options:
+  - id: a
+    text: That the signature and the SBOM accessories are there, and that the signature
+      verifies.
+    explanation: Correct. Never assume the accessories arrived.
+  - id: b
+    text: Nothing, the tag is enough.
+    explanation: Not correct. The accessories might be missing.
+  - id: c
+    text: That the source project is empty.
+    explanation: Not correct. The source keeps its artifacts.
+  - id: d
+    text: That the endpoint is insecure.
+    explanation: Not correct. That is a security flaw, not proof.
+  correct_option: a
+  explanation: Correct. Never assume the accessories arrived.
+- id: ats102-030-m04-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read an execution
+  source_readings:
+  - sections/section-030/module-04/course-04-reading-executions-and-failures.md
+  prompt: An execution shows `Succeed` and a total of 0. What is the most likely cause?
+  options:
+  - id: a
+    text: The destination is full.
+    explanation: Not correct. That would show as failed tasks.
+  - id: b
+    text: A filter matched nothing.
+    explanation: Correct. An empty run is still a success.
+  - id: c
+    text: The credentials are wrong.
+    explanation: Not correct. That would fail the tasks.
+  - id: d
+    text: The artifact was deleted by retention.
+    explanation: Not correct. Nothing here points to retention.
+  correct_option: b
+  explanation: Correct. An empty run is still a success.
+- id: ats102-030-m04-q10
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Find the real refusal
+  source_readings:
+  - sections/section-030/module-04/course-04-reading-executions-and-failures.md
+  prompt: A task fails with a forbidden error at the destination, and the destination
+    requires signatures. Where do you find the reason?
+  options:
+  - id: a
+    text: In the project README.
+    explanation: Not correct. It does not hold run results.
+  - id: b
+    text: In the endpoint list.
+    explanation: Not correct. It shows the endpoint, not task failures.
+  - id: c
+    text: In the task log.
+    explanation: Correct. The log states the destination's refusal in words.
+  - id: d
+    text: In the Cosign public key.
+    explanation: Not correct. A key does not explain a refusal.
+  correct_option: c
+  explanation: Correct. The log states the destination's refusal in words.

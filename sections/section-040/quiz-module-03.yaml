@@ -1,0 +1,238 @@
+# Knowledge check for module 03 of section 040. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats102-040-m03
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: module
+  id: section-040-module-03
+  title: Keep Storage Under Control With Retention
+placement:
+  position: after
+  reading: sections/section-040/module-03/course-05-summary.md
+questions:
+- id: ats102-040-m03-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Read a rule correctly
+  source_readings:
+  - sections/section-040/module-03/course-01-how-retention-rules-work.md
+  prompt: What does a retention rule name?
+  options:
+  - id: a
+    text: What to delete.
+    explanation: Not correct. That is the common misreading.
+  - id: b
+    text: What to keep.
+    explanation: Correct. What no rule keeps, within scope, is deleted.
+  - id: c
+    text: Which users may pull.
+    explanation: Not correct. Retention is not access control.
+  - id: d
+    text: Which scanner to use.
+    explanation: Not correct. Retention does not choose scanners.
+  correct_option: b
+  explanation: Correct. What no rule keeps, within scope, is deleted.
+- id: ats102-040-m03-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Combine rules
+  source_readings:
+  - sections/section-040/module-03/course-01-how-retention-rules-work.md
+  prompt: How are the rules of one policy combined?
+  options:
+  - id: a
+    text: 'With and: all rules must keep it.'
+    explanation: Not correct. That would delete far more.
+  - id: b
+    text: Only the first rule counts.
+    explanation: Not correct. Every rule counts.
+  - id: c
+    text: 'With or: an artifact kept by any rule is kept.'
+    explanation: Correct. This is how an `always` rule protects tags.
+  - id: d
+    text: The longest rule wins.
+    explanation: Not correct. Length does not matter.
+  correct_option: c
+  explanation: Correct. This is how an `always` rule protects tags.
+- id: ats102-040-m03-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Pick a template
+  source_readings:
+  - sections/section-040/module-03/course-01-how-retention-rules-work.md
+  prompt: Which template keeps the newest pushes, such as the last two?
+  options:
+  - id: a
+    text: "`always`"
+    explanation: Not correct. It keeps everything that matches.
+  - id: b
+    text: "`nDaysSinceLastPull`"
+    explanation: Not correct. It is based on age since a pull.
+  - id: c
+    text: "`latestPulledK`"
+    explanation: Not correct. It ranks by pull time.
+  - id: d
+    text: "`latestPushedK`"
+    explanation: Correct. It ranks by push time.
+  correct_option: d
+  explanation: Correct. It ranks by push time.
+- id: ats102-040-m03-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Test before deleting
+  source_readings:
+  - sections/section-040/module-03/course-02-dry-runs-and-executions.md
+  prompt: What does a dry run do?
+  options:
+  - id: a
+    text: It computes what would be kept and deletes nothing.
+    explanation: Correct. Use it before every real run.
+  - id: b
+    text: It deletes only untagged artifacts.
+    explanation: Not correct. It deletes nothing.
+  - id: c
+    text: It runs the policy twice.
+    explanation: Not correct. It runs once and changes nothing.
+  - id: d
+    text: It copies artifacts to a backup.
+    explanation: Not correct. There is no backup step.
+  correct_option: a
+  explanation: Correct. Use it before every real run.
+- id: ats102-040-m03-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the tasks
+  source_readings:
+  - sections/section-040/module-03/course-02-dry-runs-and-executions.md
+  prompt: A task reports `total` 3 and `retained` 2. What would a real run delete?
+  options:
+  - id: a
+    text: Two artifacts.
+    explanation: Not correct. Two are retained.
+  - id: b
+    text: One artifact.
+    explanation: Correct. The difference is what is deleted.
+  - id: c
+    text: All three artifacts.
+    explanation: Not correct. Two are kept.
+  - id: d
+    text: Nothing, until garbage collection.
+    explanation: Not correct. Retention deletes the tag record at once.
+  correct_option: b
+  explanation: Correct. The difference is what is deleted.
+- id: ats102-040-m03-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Plan a safe order
+  source_readings:
+  - sections/section-040/module-03/course-02-dry-runs-and-executions.md
+  prompt: What is the safe order for a new policy?
+  options:
+  - id: a
+    text: Run for real, then dry run.
+    explanation: Not correct. Then the dry run is too late.
+  - id: b
+    text: Schedule it and wait.
+    explanation: Not correct. It then deletes unchecked.
+  - id: c
+    text: Write it, dry run it, read the tasks, fix it, then run for real.
+    explanation: Correct. Deletion cannot be undone.
+  - id: d
+    text: Delete the oldest tags by hand first.
+    explanation: Not correct. That skips the check.
+  correct_option: c
+  explanation: Correct. Deletion cannot be undone.
+- id: ats102-040-m03-q07
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Scope the policy
+  source_readings:
+  - sections/section-040/module-03/course-03-applying-a-policy-to-a-project.md
+  prompt: What does the `scope` of a project policy hold?
+  options:
+  - id: a
+    text: The project name only.
+    explanation: Not correct. The API needs the id.
+  - id: b
+    text: A list of tags.
+    explanation: Not correct. Tags go in selectors.
+  - id: c
+    text: The cron expression.
+    explanation: Not correct. That belongs to the trigger.
+  - id: d
+    text: The level `project` and the numeric project id.
+    explanation: Correct. The id is needed, not the name.
+  correct_option: d
+  explanation: Correct. The id is needed, not the name.
+- id: ats102-040-m03-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Rank by time
+  source_readings:
+  - sections/section-040/module-03/course-03-applying-a-policy-to-a-project.md
+  prompt: The tags are `6.0.0`, `6.14.1`, `6.15.0`, pushed in that order, and `latestPushedK`
+    is 2. Which tag is deleted?
+  options:
+  - id: a
+    text: "`6.0.0`"
+    explanation: Correct. It has the oldest push time.
+  - id: b
+    text: "`6.15.0`"
+    explanation: Not correct. It is the newest push.
+  - id: c
+    text: "`6.14.1`"
+    explanation: Not correct. It is the second newest.
+  - id: d
+    text: None of them.
+    explanation: Not correct. Three tags are in scope and two are kept.
+  correct_option: a
+  explanation: Correct. It has the oldest push time.
+- id: ats102-040-m03-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Combine with immutability
+  source_readings:
+  - sections/section-040/module-03/course-04-retention-with-immutability-and-garbage-collection.md
+  prompt: Can a retention run delete an immutable tag?
+  options:
+  - id: a
+    text: Yes, retention ignores immutability.
+    explanation: Not correct. Immutability blocks deletion.
+  - id: b
+    text: No, the tag stays and is reported as not deleted.
+    explanation: Correct. Immutability guards the tag.
+  - id: c
+    text: Only on Fridays.
+    explanation: Not correct. Time of week is irrelevant.
+  - id: d
+    text: Yes, but only if untagged.
+    explanation: Not correct. It stays either way.
+  correct_option: b
+  explanation: Correct. Immutability guards the tag.
+- id: ats102-040-m03-q10
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Reclaim space
+  source_readings:
+  - sections/section-040/module-03/course-04-retention-with-immutability-and-garbage-collection.md
+  prompt: Retention deleted old tags, but disk usage did not drop. What must run?
+  options:
+  - id: a
+    text: A second retention run.
+    explanation: Not correct. The artifacts are already gone.
+  - id: b
+    text: A vulnerability scan.
+    explanation: Not correct. Scans do not free blobs.
+  - id: c
+    text: Garbage collection.
+    explanation: Correct. It removes blobs that no artifact refers to.
+  - id: d
+    text: A replication rule.
+    explanation: Not correct. Replication adds copies.
+  correct_option: c
+  explanation: Correct. It removes blobs that no artifact refers to.
