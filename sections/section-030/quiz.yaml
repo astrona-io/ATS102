@@ -1,0 +1,250 @@
+# Knowledge check for section 030. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats102-030
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: section
+  id: section-030
+  title: Signing With Cosign And Enforcing Signatures
+placement:
+  position: after
+  reading: sections/section-030/capstone/labs/lab-01/question.md
+questions:
+- id: ats102-030-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain what a signature is in Harbor
+  source_readings:
+  - sections/section-030/module-01/course-01-signatures-and-accessories.md
+  prompt: How does Harbor store a Cosign signature?
+  options:
+  - id: a
+    text: In a separate Notary server with its own database.
+    explanation: Not correct. Harbor 2.15 has no Notary server.
+  - id: b
+    text: As a label on the tag.
+    explanation: Not correct. Labels cannot hold a signature.
+  - id: c
+    text: As an accessory artifact in the same repository, linked to the digest it
+      covers.
+    explanation: Correct. A signature is a small OCI artifact.
+  - id: d
+    text: In the Trivy database.
+    explanation: Not correct. That database holds vulnerability data.
+  correct_option: c
+  explanation: Correct. A signature is a small OCI artifact.
+- id: ats102-030-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Know where Notary went
+  source_readings:
+  - sections/section-030/module-01/course-01-signatures-and-accessories.md
+  prompt: In which Harbor version did Notary support end?
+  options:
+  - id: a
+    text: Harbor 2.15 still ships Notary as an option.
+    explanation: Not correct. Harbor 2.15 has no Notary server.
+  - id: b
+    text: Notary was removed in Harbor 1.0.
+    explanation: Not correct. Harbor shipped Notary in versions 1 and early 2.
+  - id: c
+    text: Notary was never part of Harbor.
+    explanation: Not correct. Older Harbor versions had it.
+  - id: d
+    text: Notary was removed completely in version 2.9.0.
+    explanation: Correct. It was deprecated in 2.6.0 and removed in 2.9.0.
+  correct_option: d
+  explanation: Correct. It was deprecated in 2.6.0 and removed in 2.9.0.
+- id: ats102-030-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Name the accessory types
+  source_readings:
+  - sections/section-030/module-01/course-01-signatures-and-accessories.md
+  prompt: Which accessory type does a Cosign signature have in Harbor?
+  options:
+  - id: a
+    text: "`signature.cosign`"
+    explanation: Correct. A Notation signature has the type `signature.notation`.
+  - id: b
+    text: "`signature.notation`"
+    explanation: Not correct. That type belongs to Notation signatures.
+  - id: c
+    text: "`sbom.harbor`"
+    explanation: Not correct. That type belongs to SBOMs.
+  - id: d
+    text: "`scan.trivy`"
+    explanation: Not correct. Harbor has no accessory type with that name.
+  correct_option: a
+  explanation: Correct. A Notation signature has the type `signature.notation`.
+- id: ats102-030-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know what a signature covers
+  source_readings:
+  - sections/section-030/module-01/course-01-signatures-and-accessories.md
+  prompt: What does a Cosign signature cover?
+  options:
+  - id: a
+    text: The tag name only.
+    explanation: Not correct. Tags can be moved to another image.
+  - id: b
+    text: The digest of the artifact, not its tag.
+    explanation: Correct. A new image pushed under the same tag is not signed.
+  - id: c
+    text: The whole repository.
+    explanation: Not correct. A signature covers one digest.
+  - id: d
+    text: The project settings.
+    explanation: Not correct. Settings are not signed.
+  correct_option: b
+  explanation: Correct. A new image pushed under the same tag is not signed.
+- id: ats102-030-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Choose the signing keys
+  source_readings:
+  - sections/section-030/module-01/course-02-signing-with-cosign.md
+  prompt: Which two files does `cosign generate-key-pair` create?
+  options:
+  - id: a
+    text: "`cosign.crt` and `cosign.json`."
+    explanation: Not correct. Those are not the created files.
+  - id: b
+    text: "`cosign.pub` for signing and `cosign.key` for verifying."
+    explanation: Not correct. The roles are the other way round.
+  - id: c
+    text: A single file named `cosign.pem`.
+    explanation: Not correct. Cosign writes two files.
+  - id: d
+    text: "`cosign.key`, the private key that signs, and `cosign.pub`, the public
+      key that verifies."
+    explanation: Correct. The private key is encrypted with the password.
+  correct_option: d
+  explanation: Correct. The private key is encrypted with the password.
+- id: ats102-030-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Choose the signing options for a private lab
+  source_readings:
+  - sections/section-030/module-01/course-02-signing-with-cosign.md
+  prompt: Which options sign without uploading to the public transparency log?
+  options:
+  - id: a
+    text: "`--tlog-upload=false` alone."
+    explanation: Not correct. In Cosign v3 the signing configuration must be turned
+      off first.
+  - id: b
+    text: "`--use-signing-config=false --tlog-upload=false`"
+    explanation: Correct. Cosign v3 refuses `--tlog-upload=false` while it still reads
+      the public signing configuration.
+  - id: c
+    text: "`--insecure-ignore-tlog=true`"
+    explanation: Not correct. That option belongs to verify.
+  - id: d
+    text: "`--yes`"
+    explanation: Not correct. That only skips the confirmation prompt.
+  correct_option: b
+  explanation: Correct. Cosign v3 refuses `--tlog-upload=false` while it still reads
+    the public signing configuration.
+- id: ats102-030-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Choose the right verify option
+  source_readings:
+  - sections/section-030/module-01/course-02-signing-with-cosign.md
+  prompt: You signed with `--tlog-upload=false`. Which option does `cosign verify`
+    need?
+  options:
+  - id: a
+    text: "`--tlog-upload=true`"
+    explanation: Not correct. That option belongs to signing.
+  - id: b
+    text: "`--key cosign.key`"
+    explanation: Not correct. Verification uses the public key `cosign.pub`.
+  - id: c
+    text: "`--insecure-ignore-tlog=true`"
+    explanation: Correct. No log entry exists, so Cosign must not look for one.
+  - id: d
+    text: No option.
+    explanation: Not correct. Cosign would look for a log entry and fail.
+  correct_option: c
+  explanation: Correct. No log entry exists, so Cosign must not look for one.
+- id: ats102-030-q08
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Turn on Cosign enforcement
+  source_readings:
+  - sections/section-030/module-01/course-03-enforcing-signatures.md
+  prompt: Which project metadata key makes Harbor refuse artifacts without a Cosign
+    signature?
+  options:
+  - id: a
+    text: "`enable_content_trust_cosign`"
+    explanation: Correct. Set it with `harbor project config update --enable-content-trust-cosign
+      true`.
+  - id: b
+    text: "`enable_content_trust`"
+    explanation: Not correct. In Harbor 2.15 that key enforces Notation signatures.
+  - id: c
+    text: "`prevent_vul`"
+    explanation: Not correct. That key refuses vulnerable artifacts.
+  - id: d
+    text: "`auto_scan`"
+    explanation: Not correct. That key scans new pushes.
+  correct_option: a
+  explanation: Correct. Set it with `harbor project config update --enable-content-trust-cosign
+    true`.
+- id: ats102-030-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the refusal
+  source_readings:
+  - sections/section-030/module-01/course-03-enforcing-signatures.md
+  prompt: What does Harbor answer when a pull is refused because the artifact is unsigned?
+  options:
+  - id: a
+    text: HTTP `412 Precondition Failed`, code `PROJECTPOLICYVIOLATION`, message `The
+      image is not signed by cosign.`
+    explanation: Correct. Every client reports this status in its own words.
+  - id: b
+    text: HTTP `401 Unauthorized`.
+    explanation: Not correct. That status means the sign-in failed.
+  - id: c
+    text: HTTP `404 Not Found`.
+    explanation: Not correct. The artifact exists.
+  - id: d
+    text: HTTP `500 Internal Server Error`.
+    explanation: Not correct. A policy refusal is not a server error.
+  correct_option: a
+  explanation: Correct. Every client reports this status in its own words.
+- id: ats102-030-q10
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Know the limit of enforcement
+  source_readings:
+  - sections/section-030/module-01/course-03-enforcing-signatures.md
+  prompt: Harbor enforcement is on and an artifact was signed with an untrusted personal
+    key. What does Harbor do?
+  options:
+  - id: a
+    text: It refuses the artifact because the key is unknown.
+    explanation: Not correct. Harbor does not check whose key made the signature.
+  - id: b
+    text: It deletes the signature.
+    explanation: Not correct. Harbor never changes signatures.
+  - id: c
+    text: It serves the artifact, because it only checks that a Cosign signature exists.
+    explanation: Correct. Checking the key is the job of `cosign verify` with the
+      team public key.
+  - id: d
+    text: It asks the user for the password of the key.
+    explanation: Not correct. Only the signer needs the password.
+  correct_option: c
+  explanation: Correct. Checking the key is the job of `cosign verify` with the team
+    public key.

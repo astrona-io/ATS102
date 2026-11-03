@@ -1,0 +1,241 @@
+# Knowledge check for section 040. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats102-040
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: section
+  id: section-040
+  title: Blocking Vulnerable Artifacts And CVE Allowlists
+placement:
+  position: after
+  reading: sections/section-040/capstone/labs/lab-01/question.md
+questions:
+- id: ats102-040-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Name the two parts of the setting
+  source_readings:
+  - sections/section-040/module-01/course-01-preventing-vulnerable-images.md
+  prompt: Which two project settings turn on vulnerability prevention at a threshold?
+  options:
+  - id: a
+    text: "`auto_scan` and `severity`"
+    explanation: Not correct. `auto_scan` starts scans and does not refuse pulls.
+  - id: b
+    text: "`prevent_vul` and `enable_content_trust_cosign`"
+    explanation: Not correct. The second key enforces signatures.
+  - id: c
+    text: "`severity` and `expires_at`"
+    explanation: Not correct. `expires_at` belongs to an allowlist.
+  - id: d
+    text: "`prevent_vul` and `severity`"
+    explanation: Correct. The first turns the check on and the second sets the threshold.
+  correct_option: d
+  explanation: Correct. The first turns the check on and the second sets the threshold.
+- id: ats102-040-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the threshold
+  source_readings:
+  - sections/section-040/module-01/course-01-preventing-vulnerable-images.md
+  prompt: The project has `severity` set to `high`. Which artifact is refused?
+  options:
+  - id: a
+    text: One whose worst finding is High or Critical.
+    explanation: Correct. The rule is at or above the threshold.
+  - id: b
+    text: One whose worst finding is only Critical.
+    explanation: Not correct. A High finding also blocks.
+  - id: c
+    text: One whose worst finding is Medium.
+    explanation: Not correct. Medium is below `high`.
+  - id: d
+    text: One with no findings.
+    explanation: Not correct. A clean artifact is served.
+  correct_option: a
+  explanation: Correct. The rule is at or above the threshold.
+- id: ats102-040-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the refusal
+  source_readings:
+  - sections/section-040/module-01/course-01-preventing-vulnerable-images.md
+  prompt: Which HTTP status does Harbor answer when a pull violates the vulnerability
+    policy?
+  options:
+  - id: a
+    text: "`403 Forbidden`."
+    explanation: Not correct. That status is for missing permissions.
+  - id: b
+    text: "`412 Precondition Failed` with the code `PROJECTPOLICYVIOLATION`."
+    explanation: Correct. It is the same status as for unsigned artifacts.
+  - id: c
+    text: "`404 Not Found`."
+    explanation: Not correct. The artifact exists.
+  - id: d
+    text: "`429 Too Many Requests`."
+    explanation: Not correct. The policy does not limit request rates.
+  correct_option: b
+  explanation: Correct. It is the same status as for unsigned artifacts.
+- id: ats102-040-q04
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Handle an unscanned artifact
+  source_readings:
+  - sections/section-040/module-01/course-01-preventing-vulnerable-images.md
+  prompt: Prevention is on and a new artifact has never been scanned. What happens
+    on a pull?
+  options:
+  - id: a
+    text: Harbor serves it, because no report means no findings.
+    explanation: Not correct. Harbor does not guess.
+  - id: b
+    text: Harbor scans it first and then serves it.
+    explanation: Not correct. A pull does not start a scan.
+  - id: c
+    text: Harbor refuses it, because it cannot judge an artifact without a report.
+    explanation: Correct. This is why prevention belongs with scan on push.
+  - id: d
+    text: Harbor serves it only to the administrator.
+    explanation: Not correct. Nobody is exempt by role.
+  correct_option: c
+  explanation: Correct. This is why prevention belongs with scan on push.
+- id: ats102-040-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know the exempt pulls
+  source_readings:
+  - sections/section-040/module-01/course-01-preventing-vulnerable-images.md
+  prompt: Which pulls are exempt from the vulnerability policy?
+  options:
+  - id: a
+    text: Pulls by Harbor's own scanner, and by Cosign or Notation clients that sign.
+    explanation: Correct. The scanner must read vulnerable artifacts to scan them.
+  - id: b
+    text: Pulls by the system administrator.
+    explanation: Not correct. The policy refuses `admin` too.
+  - id: c
+    text: Pulls over HTTPS.
+    explanation: Not correct. The transport does not matter.
+  - id: d
+    text: Pulls by tag.
+    explanation: Not correct. Tag pulls are checked.
+  correct_option: a
+  explanation: Correct. The scanner must read vulnerable artifacts to scan them.
+- id: ats102-040-q06
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Define a CVE allowlist
+  source_readings:
+  - sections/section-040/module-01/course-02-cve-allowlists.md
+  prompt: What is a CVE allowlist in Harbor?
+  options:
+  - id: a
+    text: A list of users who may pull vulnerable artifacts.
+    explanation: Not correct. It lists CVEs, not users.
+  - id: b
+    text: A list of images that are never scanned.
+    explanation: Not correct. Allowlisted CVEs still appear in reports.
+  - id: c
+    text: A list of CVE IDs that Harbor ignores when it decides whether an artifact
+      is too vulnerable.
+    explanation: Correct. It is a narrow exception to the policy.
+  - id: d
+    text: A list of registries Harbor replicates from.
+    explanation: Not correct. That is replication, not an allowlist.
+  correct_option: c
+  explanation: Correct. It is a narrow exception to the policy.
+- id: ats102-040-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Choose between system and project allowlist
+  source_readings:
+  - sections/section-040/module-01/course-02-cve-allowlists.md
+  prompt: A project never set `reuse_sys_cve_allowlist`. Which allowlist does it use?
+  options:
+  - id: a
+    text: Its own project allowlist.
+    explanation: Not correct. That needs `reuse_sys_cve_allowlist` set to `"false"`.
+  - id: b
+    text: No allowlist at all.
+    explanation: Not correct. The system list applies.
+  - id: c
+    text: Both lists together.
+    explanation: Not correct. A project uses exactly one list.
+  - id: d
+    text: The system allowlist, and its own list is ignored.
+    explanation: Correct. Unset behaves like `"true"`.
+  correct_option: d
+  explanation: Correct. Unset behaves like `"true"`.
+- id: ats102-040-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know what expiry does
+  source_readings:
+  - sections/section-040/module-01/course-02-cve-allowlists.md
+  prompt: What happens when `expires_at` of an allowlist is reached?
+  options:
+  - id: a
+    text: Harbor deletes the artifacts that used the list.
+    explanation: Not correct. Artifacts are not deleted.
+  - id: b
+    text: Harbor ignores the whole list, so the blocked artifacts are blocked again.
+    explanation: Correct. Nobody has to remember the cleanup.
+  - id: c
+    text: Harbor extends the expiry by 14 days.
+    explanation: Not correct. Harbor never renews it.
+  - id: d
+    text: Harbor turns off `prevent_vul`.
+    explanation: Not correct. The policy stays on.
+  correct_option: b
+  explanation: Correct. Nobody has to remember the cleanup.
+- id: ats102-040-q09
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Write the narrow exception
+  source_readings:
+  - sections/section-040/module-01/course-02-cve-allowlists.md
+  prompt: What makes an exception for one reviewed image narrow and safe?
+  options:
+  - id: a
+    text: It is added to the system allowlist without an expiry.
+    explanation: Not correct. That affects every project that reuses the system list.
+  - id: b
+    text: It lives in one project, lists only the reviewed CVEs, and has an expiry.
+    explanation: Correct. Each property limits the damage if it is forgotten.
+  - id: c
+    text: It lowers `severity` to `critical`.
+    explanation: Not correct. That lets every High finding of the project through.
+  - id: d
+    text: It turns off `prevent_vul` for the project.
+    explanation: Not correct. That removes the protection for all images.
+  correct_option: b
+  explanation: Correct. Each property limits the damage if it is forgotten.
+- id: ats102-040-q10
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Fix a project that ignores its own list
+  source_readings:
+  - sections/section-040/module-01/course-02-cve-allowlists.md
+  prompt: You wrote a project allowlist, but the project still uses the system list.
+    What is the cause?
+  options:
+  - id: a
+    text: '`prevent_vul` is `"false"`.'
+    explanation: Not correct. That would turn off blocking instead.
+  - id: b
+    text: The list has too few items.
+    explanation: Not correct. The item count does not choose the list.
+  - id: c
+    text: The expiry is in the future.
+    explanation: Not correct. A future expiry keeps the list active.
+  - id: d
+    text: '`reuse_sys_cve_allowlist` is unset or `"true"`.'
+    explanation: Correct. It must be `"false"` for the project list to apply.
+  correct_option: d
+  explanation: Correct. It must be `"false"` for the project list to apply.

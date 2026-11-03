@@ -1,0 +1,268 @@
+# Knowledge check for section 010. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats102-010
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: section
+  id: section-010
+  title: Vulnerability Scanning With Trivy
+placement:
+  position: after
+  reading: sections/section-010/capstone/labs/lab-01/question.md
+questions:
+- id: ats102-010-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Name the components that take part in a scan
+  source_readings:
+  - sections/section-010/module-01/course-01-how-harbor-scans-with-trivy.md
+  prompt: Which Harbor component turns a scan request into a background job and calls
+    the Trivy adapter?
+  options:
+  - id: a
+    text: "`jobservice`"
+    explanation: Correct. `core` accepts the request and `jobservice` runs the job
+      and calls the adapter.
+  - id: b
+    text: "`registry`"
+    explanation: Not correct. `registry` only stores the layers that the adapter pulls.
+  - id: c
+    text: "`harbor-portal`"
+    explanation: Not correct. The portal is the web interface. It does not run jobs.
+  - id: d
+    text: "`harbor-redis`"
+    explanation: Not correct. Redis is a cache and queue store. It does not call the
+      scanner.
+  correct_option: a
+  explanation: Correct. `core` accepts the request and `jobservice` runs the job and
+    calls the adapter.
+- id: ats102-010-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Diagnose a failed scan
+  source_readings:
+  - sections/section-010/module-01/course-01-how-harbor-scans-with-trivy.md
+  prompt: A scan request returns at once, but the scan later ends in an error. The
+    `harbor-trivy` pod is not running. What is the most likely reason?
+  options:
+  - id: a
+    text: "`core` refused the request because the user has no permission."
+    explanation: Not correct. A permission error would answer the request itself,
+      not end the scan later.
+  - id: b
+    text: The job started but the Trivy adapter was not there to run it.
+    explanation: Correct. A scan is a background job, so the request succeeds and
+      the job cannot finish without the adapter.
+  - id: c
+    text: The Trivy database is older than 12 hours.
+    explanation: Not correct. An old database makes the adapter download a newer one.
+      It does not stop the scan.
+  - id: d
+    text: The project has scan on push turned off.
+    explanation: Not correct. That setting only decides whether new pushes start scans.
+  correct_option: b
+  explanation: Correct. A scan is a background job, so the request succeeds and the
+    job cannot finish without the adapter.
+- id: ats102-010-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain why reports change over time
+  source_readings:
+  - sections/section-010/module-01/course-01-how-harbor-scans-with-trivy.md
+  prompt: Why can the same artifact get a different vulnerability report tomorrow?
+  options:
+  - id: a
+    text: Harbor rewrites the layers of the artifact every day.
+    explanation: Not correct. Layers never change after a push. The digest would change
+      if they did.
+  - id: b
+    text: Trivy only reports one severity per day.
+    explanation: Not correct. Trivy reports every finding in each scan.
+  - id: c
+    text: The Trivy database learns about new CVEs, and it is rebuilt every 12 hours.
+    explanation: Correct. The packages stay the same, but the knowledge about their
+      flaws grows.
+  - id: d
+    text: The registry compresses the artifact again.
+    explanation: Not correct. Compression does not change which packages are inside.
+  correct_option: c
+  explanation: Correct. The packages stay the same, but the knowledge about their
+    flaws grows.
+- id: ats102-010-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Check component health
+  source_readings:
+  - sections/section-010/module-01/course-01-how-harbor-scans-with-trivy.md
+  prompt: Which request shows whether the `trivy` component is healthy without signing
+    in?
+  options:
+  - id: a
+    text: "`GET /api/v2.0/scanners`"
+    explanation: Not correct. That lists scanner registrations and needs a sign-in.
+  - id: b
+    text: "`harbor scanner list`"
+    explanation: Not correct. The command lists registered scanners. It does not report
+      health.
+  - id: c
+    text: "`GET /api/v2.0/system/scanAll/schedule`"
+    explanation: Not correct. That returns the scan-all schedule, not the health.
+  - id: d
+    text: "`GET /api/v2.0/health`"
+    explanation: Correct. It lists every component with its own status and needs no
+      sign-in.
+  correct_option: d
+  explanation: Correct. It lists every component with its own status and needs no
+    sign-in.
+- id: ats102-010-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Start a scan and read its state
+  source_readings:
+  - sections/section-010/module-01/course-02-scanning-and-reading-a-report.md
+  prompt: What does `harbor artifact scan start inventory/podinfo/6.0.0` do?
+  options:
+  - id: a
+    text: It waits until the scan is done and prints the report.
+    explanation: Not correct. The command only starts the job.
+  - id: b
+    text: It starts the scan job and returns at once without waiting for the result.
+    explanation: Correct. The result appears later in the scan overview.
+  - id: c
+    text: It scans every artifact in the project `inventory`.
+    explanation: Not correct. It names one artifact, so it scans only that one.
+  - id: d
+    text: It turns on scan on push for the project.
+    explanation: Not correct. That is the project setting `auto_scan`.
+  correct_option: b
+  explanation: Correct. The result appears later in the scan overview.
+- id: ats102-010-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the scan overview
+  source_readings:
+  - sections/section-010/module-01/course-02-scanning-and-reading-a-report.md
+  prompt: Which `scan_status` value tells you that the counts in the scan overview
+    can be trusted?
+  options:
+  - id: a
+    text: "`Running`"
+    explanation: Not correct. The scan is still working and `complete_percent` is
+      still changing.
+  - id: b
+    text: "`Pending`"
+    explanation: Not correct. The scan has not started its work yet.
+  - id: c
+    text: "`Unknown`"
+    explanation: Not correct. `Unknown` is a severity name in the summary, not a finished
+      scan.
+  - id: d
+    text: "`Success`"
+    explanation: Correct. Only a finished scan has final counts.
+  correct_option: d
+  explanation: Correct. Only a finished scan has final counts.
+- id: ats102-010-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Find the fix for a finding
+  source_readings:
+  - sections/section-010/module-01/course-02-scanning-and-reading-a-report.md
+  prompt: A report lists a finding in the Alpine package `libcrypto3`. What does the
+    report tell the image owner to do?
+  options:
+  - id: a
+    text: Move to a newer base image that carries a fixed version of the package.
+    explanation: Correct. The `fix_version` column shows the first fixed version,
+      and an Alpine package comes from the base image.
+  - id: b
+    text: Rebuild the application with a newer Go module.
+    explanation: Not correct. That fixes findings in Go modules compiled into the
+      binary, not in Alpine packages.
+  - id: c
+    text: Delete the artifact from Harbor.
+    explanation: Not correct. Deleting hides the image but fixes nothing in the image.
+  - id: d
+    text: Run `harbor scan-all update-schedule daily`.
+    explanation: Not correct. A schedule scans again but does not change the package.
+  correct_option: a
+  explanation: Correct. The `fix_version` column shows the first fixed version, and
+    an Alpine package comes from the base image.
+- id: ats102-010-q08
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Turn on scan on push
+  source_readings:
+  - sections/section-010/module-01/course-03-scan-on-push-and-scheduled-scans.md
+  prompt: Which project setting makes Harbor scan every newly pushed artifact?
+  options:
+  - id: a
+    text: "`prevent_vul`"
+    explanation: Not correct. That setting refuses vulnerable pulls. It does not start
+      scans.
+  - id: b
+    text: "`auto_sbom_generation`"
+    explanation: Not correct. That setting generates SBOMs, not vulnerability reports.
+  - id: c
+    text: "`auto_scan`"
+    explanation: Correct. The `harbor` tool sets it with `harbor project config update
+      --auto-scan true`.
+  - id: d
+    text: "`reuse_sys_cve_allowlist`"
+    explanation: Not correct. That setting chooses which CVE allowlist the project
+      uses.
+  correct_option: c
+  explanation: Correct. The `harbor` tool sets it with `harbor project config update
+    --auto-scan true`.
+- id: ats102-010-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know the limit of scan on push
+  source_readings:
+  - sections/section-010/module-01/course-03-scan-on-push-and-scheduled-scans.md
+  prompt: Scan on push is now on for `inventory`, which holds an older, never scanned
+    artifact. What happens to the old artifact?
+  options:
+  - id: a
+    text: Harbor scans it within a minute.
+    explanation: Not correct. Turning the setting on does not trigger scans of existing
+      artifacts.
+  - id: b
+    text: Harbor deletes it.
+    explanation: Not correct. Harbor never deletes artifacts because of a scan setting.
+  - id: c
+    text: Nothing. It stays unscanned until someone scans it or scan all runs.
+    explanation: Correct. Scan on push only acts on new pushes.
+  - id: d
+    text: Harbor refuses to serve it.
+    explanation: Not correct. Refusing pulls needs `prevent_vul`, not scan on push.
+  correct_option: c
+  explanation: Correct. Scan on push only acts on new pushes.
+- id: ats102-010-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Write a Harbor cron expression
+  source_readings:
+  - sections/section-010/module-01/course-03-scan-on-push-and-scheduled-scans.md
+  prompt: Which expression is a valid Harbor schedule for a scan at midnight every
+    day?
+  options:
+  - id: a
+    text: "`0 0 0 * * *`"
+    explanation: Correct. Harbor cron has six fields and the first one is seconds.
+  - id: b
+    text: "`0 0 * * *`"
+    explanation: Not correct. That has five fields, and Harbor needs six.
+  - id: c
+    text: "`daily 00:00`"
+    explanation: Not correct. Harbor takes a cron expression or the fixed choices,
+      not this text.
+  - id: d
+    text: "`* * * * * 0`"
+    explanation: Not correct. That runs every second on one weekday.
+  correct_option: a
+  explanation: Correct. Harbor cron has six fields and the first one is seconds.

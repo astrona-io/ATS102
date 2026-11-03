@@ -1,0 +1,247 @@
+# Knowledge check for section 020. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats102-020
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: section
+  id: section-020
+  title: Software Bills Of Materials
+placement:
+  position: after
+  reading: sections/section-020/capstone/labs/lab-01/question.md
+questions:
+- id: ats102-020-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Define an SBOM
+  source_readings:
+  - sections/section-020/module-01/course-01-what-an-sbom-is.md
+  prompt: What does a Software Bill of Materials (SBOM) record?
+  options:
+  - id: a
+    text: Every known CVE that affects an artifact.
+    explanation: Not correct. That is a vulnerability report.
+  - id: b
+    text: Every software package inside an artifact, with at least its name and version.
+    explanation: Correct. It is a list of packages.
+  - id: c
+    text: The users who pushed the artifact.
+    explanation: Not correct. An SBOM lists packages, not users.
+  - id: d
+    text: The signatures of the artifact.
+    explanation: Not correct. Signatures are separate accessories.
+  correct_option: b
+  explanation: Correct. It is a list of packages.
+- id: ats102-020-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Tell an SBOM from a vulnerability report
+  source_readings:
+  - sections/section-020/module-01/course-01-what-an-sbom-is.md
+  prompt: Which statement about an SBOM and a vulnerability report is correct?
+  options:
+  - id: a
+    text: The SBOM changes every 12 hours with the Trivy database.
+    explanation: Not correct. The SBOM only lists packages and does not use the database.
+  - id: b
+    text: The vulnerability report lists packages without versions.
+    explanation: Not correct. A report names the package version and the fixed version.
+  - id: c
+    text: The SBOM of an image never changes after the build, but its vulnerability
+      report can.
+    explanation: Correct. The packages are fixed, while the vulnerability database
+      keeps learning.
+  - id: d
+    text: Both always have the same content.
+    explanation: Not correct. One lists packages and the other lists vulnerabilities.
+  correct_option: c
+  explanation: Correct. The packages are fixed, while the vulnerability database keeps
+    learning.
+- id: ats102-020-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Name the SBOM format Harbor writes
+  source_readings:
+  - sections/section-020/module-01/course-01-what-an-sbom-is.md
+  prompt: Which SBOM format does Harbor 2.15 produce?
+  options:
+  - id: a
+    text: CycloneDX in XML form.
+    explanation: Not correct. Harbor 2.15 does not write CycloneDX.
+  - id: b
+    text: A plain text list of file names.
+    explanation: Not correct. The document is structured SPDX JSON.
+  - id: c
+    text: A Notation trust policy.
+    explanation: Not correct. That is a signing document and not an SBOM.
+  - id: d
+    text: SPDX in JSON form, with the media type `application/spdx+json`.
+    explanation: Correct. Harbor writes SPDX.
+  correct_option: d
+  explanation: Correct. Harbor writes SPDX.
+- id: ats102-020-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know where Harbor stores an SBOM
+  source_readings:
+  - sections/section-020/module-01/course-01-what-an-sbom-is.md
+  prompt: Where does Harbor keep a generated SBOM?
+  options:
+  - id: a
+    text: As an accessory of type `sbom.harbor`, linked to the image it describes.
+    explanation: Correct. It is an OCI artifact in the same repository.
+  - id: b
+    text: As a row in the Harbor PostgreSQL database only.
+    explanation: Not correct. Harbor stores it in the registry as an artifact.
+  - id: c
+    text: As a file in the workstation pod.
+    explanation: Not correct. The workstation is a client. Harbor does not store SBOMs
+      there.
+  - id: d
+    text: As a label on the image tag.
+    explanation: Not correct. A label cannot hold a whole SPDX document.
+  correct_option: a
+  explanation: Correct. It is an OCI artifact in the same repository.
+- id: ats102-020-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Predict what happens when an image is deleted
+  source_readings:
+  - sections/section-020/module-01/course-01-what-an-sbom-is.md
+  prompt: What happens to the SBOM accessory when you delete its subject image?
+  options:
+  - id: a
+    text: It stays in the repository forever.
+    explanation: Not correct. An accessory belongs to its subject.
+  - id: b
+    text: It moves to the project `library`.
+    explanation: Not correct. Harbor does not move accessories.
+  - id: c
+    text: Harbor deletes the accessory together with the image.
+    explanation: Correct. Accessories are deleted with their subject.
+  - id: d
+    text: It becomes a vulnerability report.
+    explanation: Not correct. An SBOM never becomes a report.
+  correct_option: c
+  explanation: Correct. Accessories are deleted with their subject.
+- id: ats102-020-q06
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Request an SBOM
+  source_readings:
+  - sections/section-020/module-01/course-02-generating-and-reading-an-sbom.md
+  prompt: Which request body asks Harbor for an SBOM when you `POST` to the artifact
+    `scan` endpoint?
+  options:
+  - id: a
+    text: '`{"scan_type":"sbom"}`'
+    explanation: Correct. This body selects SBOM generation.
+  - id: b
+    text: No body at all.
+    explanation: Not correct. Without a body the endpoint starts a vulnerability scan.
+  - id: c
+    text: '`{"scan_type":"spdx"}`'
+    explanation: Not correct. The accepted value is `sbom`.
+  - id: d
+    text: '`{"auto_sbom_generation":"true"}`'
+    explanation: Not correct. That is a project metadata key, not a scan body.
+  correct_option: a
+  explanation: Correct. This body selects SBOM generation.
+- id: ats102-020-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Find the digest of the SBOM
+  source_readings:
+  - sections/section-020/module-01/course-02-generating-and-reading-an-sbom.md
+  prompt: Which value do you use to download the SBOM with `regctl artifact get`?
+  options:
+  - id: a
+    text: The digest of the image.
+    explanation: Not correct. That downloads the image and not its SBOM.
+  - id: b
+    text: The `sbom_digest` from the SBOM overview.
+    explanation: Correct. It is the digest of the accessory.
+  - id: c
+    text: The `push_time` of the artifact.
+    explanation: Not correct. A time is not a digest.
+  - id: d
+    text: The tag of the artifact.
+    explanation: Not correct. A tag names the image, not its SBOM.
+  correct_option: b
+  explanation: Correct. It is the digest of the accessory.
+- id: ats102-020-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Answer a question from an SBOM
+  source_readings:
+  - sections/section-020/module-01/course-02-generating-and-reading-an-sbom.md
+  prompt: You need to know whether an image contains a package whose name has `zlib`.
+    Which source gives the answer without a new scan?
+  options:
+  - id: a
+    text: The Trivy database file in the `trivy` pod.
+    explanation: Not correct. It lists vulnerabilities, not what is inside your image.
+  - id: b
+    text: The `auto_scan` project setting.
+    explanation: Not correct. It is a switch and holds no package data.
+  - id: c
+    text: The health endpoint.
+    explanation: Not correct. It reports component status.
+  - id: d
+    text: The downloaded SPDX file, filtered with `jq` on the `packages` list.
+    explanation: Correct. The SBOM records what was in the image at build time.
+  correct_option: d
+  explanation: Correct. The SBOM records what was in the image at build time.
+- id: ats102-020-q09
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Turn on SBOM generation on push
+  source_readings:
+  - sections/section-020/module-01/course-02-generating-and-reading-an-sbom.md
+  prompt: Which project metadata key makes Harbor generate an SBOM for every pushed
+    artifact?
+  options:
+  - id: a
+    text: "`auto_scan`"
+    explanation: Not correct. That key starts vulnerability scans.
+  - id: b
+    text: "`enable_content_trust_cosign`"
+    explanation: Not correct. That key enforces Cosign signatures.
+  - id: c
+    text: "`prevent_vul`"
+    explanation: Not correct. That key refuses vulnerable pulls.
+  - id: d
+    text: "`auto_sbom_generation`"
+    explanation: Correct. Set it to `"true"` with a `PUT` of the project metadata.
+  correct_option: d
+  explanation: Correct. Set it to `"true"` with a `PUT` of the project metadata.
+- id: ats102-020-q10
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Plan a release that needs both
+  source_readings:
+  - sections/section-020/module-01/course-02-generating-and-reading-an-sbom.md
+  prompt: A project has an artifact pushed before the settings were changed. You turned
+    on both `auto_scan` and `auto_sbom_generation`. What must you still do for that
+    artifact?
+  options:
+  - id: a
+    text: Nothing. Both settings cover existing artifacts.
+    explanation: Not correct. They act on new pushes only.
+  - id: b
+    text: Scan it and generate its SBOM by hand once.
+    explanation: Correct. Both settings only act on new pushes.
+  - id: c
+    text: Delete and push it again under a new digest.
+    explanation: Not correct. A manual request is enough and keeps the artifact.
+  - id: d
+    text: Only generate the SBOM, because a scan already exists.
+    explanation: Not correct. An artifact scanned earlier is a different case. Both
+      must be checked.
+  correct_option: b
+  explanation: Correct. Both settings only act on new pushes.

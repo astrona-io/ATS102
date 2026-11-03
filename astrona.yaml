@@ -124,6 +124,10 @@ modules:
             url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/
           - name: "Connect Harbor to additional vulnerability scanners"
             url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/pluggable-scanners/
+      - type: quiz
+        title: "Knowledge Check: Vulnerability Scanning With Trivy"
+        path: sections/section-010/quiz.yaml
+        pass_score: 70
 
   - id: module-020
     title: "Software Bills Of Materials"
@@ -190,6 +194,10 @@ modules:
             url: https://goharbor.io/docs/2.15.0/administration/sbom-integration/
           - name: "Vulnerability scanning"
             url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/
+      - type: quiz
+        title: "Knowledge Check: Software Bills Of Materials"
+        path: sections/section-020/quiz.yaml
+        pass_score: 70
 
   - id: module-030
     title: "Signing With Cosign And Enforcing Signatures"
@@ -261,6 +269,10 @@ modules:
             url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/implementing-content-trust/
           - name: "Verifying signatures with Cosign"
             url: https://docs.sigstore.dev/cosign/verifying/verify/
+      - type: quiz
+        title: "Knowledge Check: Signing With Cosign And Enforcing Signatures"
+        path: sections/section-030/quiz.yaml
+        pass_score: 70
 
   - id: module-040
     title: "Blocking Vulnerable Artifacts And CVE Allowlists"
@@ -329,3 +341,11 @@ modules:
             url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/deployment-security/
           - name: "Configure the system-wide CVE allowlist"
             url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/configure-system-allowlist/
+      - type: quiz
+        title: "Knowledge Check: Blocking Vulnerable Artifacts And CVE Allowlists"
+        path: sections/section-040/quiz.yaml
+        pass_score: 70
+      - type: quiz
+        title: "Final Domain Quiz"
+        path: sections/final-domain-quiz.yaml
+        pass_score: 70
