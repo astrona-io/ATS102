@@ -14,6 +14,9 @@ This section shows you how that works and how to use it from the command line. H
 - Reading a vulnerability report: the summary by severity and the list of CVEs with their packages and fixed versions.
 - Turning on scan on push for a project, and scheduling a scan of every artifact.
 - Finding why a scan ends in an error.
+- Registering a scanner and choosing the scanner of one project.
+- Changing the Trivy adapter with `SCANNER_TRIVY_*` settings.
+- Reading severity, CVSS scores and fixed versions, and the states and log of a scan.
 
 ## The learning path
 
@@ -25,6 +28,16 @@ The module starts at its landing page, which also launches the playground. The p
 2. Scanning An Artifact And Reading The Report
 3. Scan On Push And Scheduled Scans, followed by the lab **Scan Every Pushed Artifact**
 4. Summary
+
+### 2. Configure Trivy And Read Findings In Depth
+
+The module starts at its landing page, which also launches the playground. The playground holds Harbor with the project `inventory`, the old `podinfo:6.0.0` and the recent `podinfo:6.15.0`, and the Trivy database already downloaded.
+
+1. Scanner Registrations And The Project Scanner
+2. Configuring The Trivy Adapter, followed by the lab **Report Only Fixable Vulnerabilities**
+3. Severity, CVSS Scores And Fixed Versions
+4. Scan States, Stopping A Scan And The Scan Log
+5. Summary
 
 ## Section capstone: Get A Successful Scan For Every Release
 

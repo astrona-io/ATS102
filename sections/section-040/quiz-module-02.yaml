@@ -1,0 +1,244 @@
+# Knowledge check for module 02 of section 040. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats102-040-m02
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: module
+  id: section-040-module-02
+  title: Robot Accounts And Immutable Tags
+placement:
+  position: after
+  reading: sections/section-040/module-02/course-05-summary.md
+questions:
+- id: ats102-040-m02-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Name a robot account
+  source_readings:
+  - sections/section-040/module-02/course-01-robot-accounts.md
+  prompt: What is the full name of a project robot account `ci-pull` in the project
+    `inventory`?
+  options:
+  - id: a
+    text: "`robot$inventory+ci-pull`"
+    explanation: Correct. Harbor adds the prefix `robot$` and the project name.
+  - id: b
+    text: "`inventory+ci-pull`"
+    explanation: Not correct. The prefix `robot$` is part of the name.
+  - id: c
+    text: "`robot+inventory$ci-pull`"
+    explanation: Not correct. The `$` comes after `robot`.
+  - id: d
+    text: "`ci-pull@inventory`"
+    explanation: Not correct. Harbor does not use an `@` form.
+  correct_option: a
+  explanation: Correct. Harbor adds the prefix `robot$` and the project name.
+- id: ats102-040-m02-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Quote the name
+  source_readings:
+  - sections/section-040/module-02/course-01-robot-accounts.md
+  prompt: Why must you put a robot name such as `robot$inventory+ci-pull` in single
+    quotes in a shell?
+  options:
+  - id: a
+    text: The `+` would start a new command.
+    explanation: Not correct. `+` has no special meaning in a name.
+  - id: b
+    text: The shell would otherwise expand `$inventory` to an empty string.
+    explanation: Correct. Single quotes stop the shell from expanding variables.
+  - id: c
+    text: Harbor requires quotes in the header.
+    explanation: Not correct. Quotes are a shell matter, not a Harbor rule.
+  - id: d
+    text: The name is case sensitive.
+    explanation: Not correct. Case does not require quotes.
+  correct_option: b
+  explanation: Correct. Single quotes stop the shell from expanding variables.
+- id: ats102-040-m02-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Handle the robot secret
+  source_readings:
+  - sections/section-040/module-02/course-01-robot-accounts.md
+  prompt: A pipeline lost the secret of its robot. What is the right fix?
+  options:
+  - id: a
+    text: Read the secret from the robot listing.
+    explanation: Not correct. The listing never shows the secret.
+  - id: b
+    text: Ask Harbor to show the secret again.
+    explanation: Not correct. Harbor cannot show it again.
+  - id: c
+    text: Refresh the secret of the robot and store the new one.
+    explanation: Correct. Harbor shows the secret once, so you replace it.
+  - id: d
+    text: Use the administrator password.
+    explanation: Not correct. That gives the pipeline more rights than it needs.
+  correct_option: c
+  explanation: Correct. Harbor shows the secret once, so you replace it.
+- id: ats102-040-m02-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Set a robot lifetime
+  source_readings:
+  - sections/section-040/module-02/course-01-robot-accounts.md
+  prompt: What does `"duration":30` mean when you create a robot?
+  options:
+  - id: a
+    text: The robot expires after 30 hours.
+    explanation: Not correct. The unit is days.
+  - id: b
+    text: The robot allows 30 pulls.
+    explanation: Not correct. There is no pull counter.
+  - id: c
+    text: The secret has 30 characters.
+    explanation: Not correct. Secret length is not set by the duration.
+  - id: d
+    text: The robot expires after 30 days.
+    explanation: Correct. The duration is counted in days.
+  correct_option: d
+  explanation: Correct. The duration is counted in days.
+- id: ats102-040-m02-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read a refusal
+  source_readings:
+  - sections/section-040/module-02/course-02-using-a-robot-and-reading-refusals.md
+  prompt: Harbor answers a pull with `412`. What does that tell you?
+  options:
+  - id: a
+    text: A project policy refused the request.
+    explanation: Correct. A `412` is a policy refusal, such as content trust or the
+      vulnerability gate.
+  - id: b
+    text: The password is wrong.
+    explanation: Not correct. A wrong credential gives `401`.
+  - id: c
+    text: The robot has no pull permission.
+    explanation: Not correct. Missing permissions give `403`.
+  - id: d
+    text: The repository does not exist.
+    explanation: Not correct. A missing or hidden artifact gives `404`.
+  correct_option: a
+  explanation: Correct. A `412` is a policy refusal, such as content trust or the
+    vulnerability gate.
+- id: ats102-040-m02-q06
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Explain a successful login with a failed pull
+  source_readings:
+  - sections/section-040/module-02/course-02-using-a-robot-and-reading-refusals.md
+  prompt: A robot signs in to the registry but a pull from another project fails.
+    Why?
+  options:
+  - id: a
+    text: The secret is only valid for one project.
+    explanation: Not correct. A secret is valid for the robot, not for a project.
+  - id: b
+    text: Permissions apply when the token is used, not at login.
+    explanation: Correct. The token service issues a token with only the access the
+      robot has.
+  - id: c
+    text: The registry caches the failure.
+    explanation: Not correct. There is no such cache.
+  - id: d
+    text: The login did not really succeed.
+    explanation: Not correct. The login did succeed.
+  correct_option: b
+  explanation: Correct. The token service issues a token with only the access the
+    robot has.
+- id: ats102-040-m02-q07
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Describe an immutable tag
+  source_readings:
+  - sections/section-040/module-02/course-03-immutable-tags.md
+  prompt: What does a tag immutability rule do to a matching tag?
+  options:
+  - id: a
+    text: Harbor hides it from pulls.
+    explanation: Not correct. Pulls still work.
+  - id: b
+    text: Harbor signs it automatically.
+    explanation: Not correct. Signing is a separate step.
+  - id: c
+    text: Harbor refuses to overwrite or delete it.
+    explanation: Correct. An immutable tag keeps one image for as long as it exists.
+  - id: d
+    text: Harbor scans it again every day.
+    explanation: Not correct. Scans are a separate setting.
+  correct_option: c
+  explanation: Correct. An immutable tag keeps one image for as long as it exists.
+- id: ats102-040-m02-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Pick a tag pattern
+  source_readings:
+  - sections/section-040/module-02/course-03-immutable-tags.md
+  prompt: Which tag pattern protects `6.15.0` and `6.0.0` and leaves `latest` free?
+  options:
+  - id: a
+    text: "`**`"
+    explanation: Not correct. `**` matches every tag.
+  - id: b
+    text: "`latest`"
+    explanation: Not correct. `latest` is the tag you wanted free.
+  - id: c
+    text: "`*.0`"
+    explanation: Not correct. `*.0` matches a different set of tags.
+  - id: d
+    text: "`6.*`"
+    explanation: Correct. `6.*` matches tags that start with `6.`.
+  correct_option: d
+  explanation: Correct. `6.*` matches tags that start with `6.`.
+- id: ats102-040-m02-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know who the rule binds
+  source_readings:
+  - sections/section-040/module-02/course-03-immutable-tags.md
+  prompt: Does an immutability rule apply to the system administrator?
+  options:
+  - id: a
+    text: Yes, it applies to everybody.
+    explanation: Correct. The rule applies to every pusher.
+  - id: b
+    text: No, administrators bypass it.
+    explanation: Not correct. There is no bypass.
+  - id: c
+    text: Only when the administrator uses the portal.
+    explanation: Not correct. The portal follows the same rule.
+  - id: d
+    text: Only for delete requests.
+    explanation: Not correct. It covers overwrites too.
+  correct_option: a
+  explanation: Correct. The rule applies to every pusher.
+- id: ats102-040-m02-q10
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Write a safe gate
+  source_readings:
+  - sections/section-040/module-02/course-04-a-pipeline-gate.md
+  prompt: A gate script cannot reach Harbor. What should it do?
+  options:
+  - id: a
+    text: Print a warning and exit `0`.
+    explanation: Not correct. That passes everything during an outage.
+  - id: b
+    text: Exit with a failure, so the pipeline stops.
+    explanation: Correct. A gate must fail closed when it cannot decide.
+  - id: c
+    text: Retry forever.
+    explanation: Not correct. A pipeline that never ends blocks the team.
+  - id: d
+    text: Pass if the last run passed.
+    explanation: Not correct. An old result says nothing about the current artifact.
+  correct_option: b
+  explanation: Correct. A gate must fail closed when it cannot decide.

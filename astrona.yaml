@@ -105,6 +105,49 @@ modules:
         path: sections/section-010/module-01/course-04-summary.md
 
       - type: reading
+        title: "Configure Trivy And Read Findings In Depth"
+        path: sections/section-010/module-02/course.md
+      - type: reading
+        title: "Scanner Registrations And The Project Scanner"
+        path: sections/section-010/module-02/course-01-scanner-registrations.md
+      - type: reading
+        title: "Configuring The Trivy Adapter"
+        path: sections/section-010/module-02/course-02-configuring-the-trivy-adapter.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Report Only Fixable Vulnerabilities Lab"
+        path: sections/section-010/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: scanning
+        task_kind: build
+        tags: [trivy, scanner, vulnerability-report, severity, harbor-api, harbor-cli]
+        learning_goals:
+          - Change how the Trivy adapter treats vulnerabilities that have no fix
+          - Scan an artifact again after the change
+          - Prove from the report that every finding has a fixed version
+        resources:
+          - name: "Vulnerability scanning"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/
+          - name: "Connect Harbor to additional vulnerability scanners"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/pluggable-scanners/
+      - type: reading
+        title: "Severity, CVSS Scores And Fixed Versions"
+        path: sections/section-010/module-02/course-03-severity-cvss-and-fixed-versions.md
+      - type: reading
+        title: "Scan States, Stopping A Scan And The Scan Log"
+        path: sections/section-010/module-02/course-04-scan-states-and-logs.md
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Configure Trivy And Read Findings In Depth"
+        path: sections/section-010/quiz-module-02.yaml
+        pass_score: 70
+
+      - type: reading
         title: Question
         path: sections/section-010/capstone/labs/lab-01/question.md
       - type: lab
@@ -173,6 +216,49 @@ modules:
       - type: reading
         title: Summary
         path: sections/section-020/module-01/course-03-summary.md
+
+      - type: reading
+        title: "Read And Use The Content Of An SBOM"
+        path: sections/section-020/module-02/course.md
+      - type: reading
+        title: "The Structure Of An SPDX Document"
+        path: sections/section-020/module-02/course-01-structure-of-an-spdx-document.md
+      - type: reading
+        title: "Packages, Versions, Licenses And Package URLs"
+        path: sections/section-020/module-02/course-02-packages-versions-licenses-and-purls.md
+      - type: reading
+        title: "Find A Package Across Artifacts"
+        path: sections/section-020/module-02/course-03-find-a-package-across-artifacts.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Label Artifacts By Package From Their SBOM Lab"
+        path: sections/section-020/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: sbom
+        task_kind: build
+        tags: [sbom, spdx, accessory, regctl, harbor-api, digest]
+        learning_goals:
+          - Generate SBOMs for two artifacts and download the SPDX documents
+          - Decide from each document whether a package is present
+          - Record the decision as a Harbor label
+        resources:
+          - name: "SBOM generation"
+            url: https://goharbor.io/docs/2.15.0/administration/sbom-integration/
+          - name: "Create and assign labels"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-labels/
+      - type: reading
+        title: "The Life Of An SBOM Accessory"
+        path: sections/section-020/module-02/course-04-the-life-of-an-sbom-accessory.md
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Read And Use The Content Of An SBOM"
+        path: sections/section-020/quiz-module-02.yaml
+        pass_score: 70
 
       - type: reading
         title: Question
@@ -250,6 +336,49 @@ modules:
         path: sections/section-030/module-01/course-04-summary.md
 
       - type: reading
+        title: "Signature Annotations, Attestations And Key Rotation"
+        path: sections/section-030/module-02/course.md
+      - type: reading
+        title: "What A Signature Proves"
+        path: sections/section-030/module-02/course-01-what-a-signature-proves.md
+      - type: reading
+        title: "Annotations And More Than One Signer"
+        path: sections/section-030/module-02/course-02-annotations-and-more-than-one-signer.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Add A Second Signature With An Annotation Lab"
+        path: sections/section-030/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: signing
+        task_kind: build
+        tags: [cosign, cosign-key-pair, accessory, digest, regctl, content-trust]
+        learning_goals:
+          - Sign an artifact that is already signed with a second key
+          - Add an annotation to the signature
+          - Prove that both signatures verify
+        resources:
+          - name: "Sign artifacts with Cosign or Notation"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/sign-images/
+          - name: "Signing containers with Cosign"
+            url: https://docs.sigstore.dev/cosign/signing/signing_with_containers/
+      - type: reading
+        title: "Attestations"
+        path: sections/section-030/module-02/course-03-attestations.md
+      - type: reading
+        title: "Keys, Keyless Signing And Rotation"
+        path: sections/section-030/module-02/course-04-keys-keyless-and-rotation.md
+      - type: reading
+        title: Summary
+        path: sections/section-030/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Signature Annotations, Attestations And Key Rotation"
+        path: sections/section-030/quiz-module-02.yaml
+        pass_score: 70
+
+      - type: reading
         title: Question
         path: sections/section-030/capstone/labs/lab-01/question.md
       - type: lab
@@ -320,6 +449,49 @@ modules:
       - type: reading
         title: Summary
         path: sections/section-040/module-01/course-03-summary.md
+
+      - type: reading
+        title: "Robot Accounts And Immutable Tags"
+        path: sections/section-040/module-02/course.md
+      - type: reading
+        title: "Robot Accounts"
+        path: sections/section-040/module-02/course-01-robot-accounts.md
+      - type: reading
+        title: "Using A Robot And Reading Refusals"
+        path: sections/section-040/module-02/course-02-using-a-robot-and-reading-refusals.md
+      - type: reading
+        title: "Immutable Tags"
+        path: sections/section-040/module-02/course-03-immutable-tags.md
+      - type: reading
+        title: Question
+        path: sections/section-040/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Create A Pull-Only Robot And Protect Release Tags Lab"
+        path: sections/section-040/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: deployment-security
+        task_kind: build
+        tags: [harbor-api, regctl, digest, signature-enforcement, prevent-vulnerable]
+        learning_goals:
+          - Create a project robot account that can only pull and expires
+          - Save the robot secret and prove it signs in
+          - Protect release tags with an immutability rule
+        resources:
+          - name: "Robot accounts"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/create-robot-accounts/
+          - name: "Tag immutability rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-immutability-rules/
+      - type: reading
+        title: "A Pipeline Gate"
+        path: sections/section-040/module-02/course-04-a-pipeline-gate.md
+      - type: reading
+        title: Summary
+        path: sections/section-040/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Robot Accounts And Immutable Tags"
+        path: sections/section-040/quiz-module-02.yaml
+        pass_score: 70
 
       - type: reading
         title: Question

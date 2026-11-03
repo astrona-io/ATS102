@@ -1,0 +1,252 @@
+# Knowledge check for module 02 of section 020. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats102-020-m02
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: module
+  id: section-020-module-02
+  title: Read And Use The Content Of An SBOM
+placement:
+  position: after
+  reading: sections/section-020/module-02/course-05-summary.md
+questions:
+- id: ats102-020-m02-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Name the parts of an SPDX document
+  source_readings:
+  - sections/section-020/module-02/course-01-structure-of-an-spdx-document.md
+  prompt: Which top-level field of an SPDX document lists the software inside the
+    artifact?
+  options:
+  - id: a
+    text: "`packages`"
+    explanation: Correct. `packages` has one entry for every package.
+  - id: b
+    text: "`creationInfo`"
+    explanation: Not correct. `creationInfo` names the tool and the time of creation.
+  - id: c
+    text: "`dataLicense`"
+    explanation: Not correct. `dataLicense` is the license of the document itself.
+  - id: d
+    text: "`documentNamespace`"
+    explanation: Not correct. `documentNamespace` is a unique address for the document.
+  correct_option: a
+  explanation: Correct. `packages` has one entry for every package.
+- id: ats102-020-m02-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read relationships
+  source_readings:
+  - sections/section-020/module-02/course-01-structure-of-an-spdx-document.md
+  prompt: Which relationship type links the artifact to the packages inside it?
+  options:
+  - id: a
+    text: "`DESCRIBES`"
+    explanation: Not correct. `DESCRIBES` links the document to the artifact it describes.
+  - id: b
+    text: "`CONTAINS`"
+    explanation: Correct. `CONTAINS` links a container to what it holds. `DESCRIBES`
+      links the document to the artifact.
+  - id: c
+    text: "`GENERATED_FROM`"
+    explanation: Not correct. This type is for generated files, not packages in an
+      image.
+  - id: d
+    text: "`PATCH_FOR`"
+    explanation: Not correct. This type is for patches.
+  correct_option: b
+  explanation: Correct. `CONTAINS` links a container to what it holds. `DESCRIBES`
+    links the document to the artifact.
+- id: ats102-020-m02-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read dataLicense correctly
+  source_readings:
+  - sections/section-020/module-02/course-01-structure-of-an-spdx-document.md
+  prompt: What does the `dataLicense` field of an SPDX document state?
+  options:
+  - id: a
+    text: The license of the scanned image.
+    explanation: Not correct. The licenses of the software are in the package entries.
+  - id: b
+    text: The license of the most common package.
+    explanation: Not correct. There is no field that summarises the packages.
+  - id: c
+    text: The license of the SBOM file itself.
+    explanation: Correct. `dataLicense` covers the document and not the software it
+      lists.
+  - id: d
+    text: The license of the scanner.
+    explanation: Not correct. The scanner's license is not recorded here.
+  correct_option: c
+  explanation: Correct. `dataLicense` covers the document and not the software it
+    lists.
+- id: ats102-020-m02-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Use a package URL
+  source_readings:
+  - sections/section-020/module-02/course-02-packages-versions-licenses-and-purls.md
+  prompt: What is a package URL (purl) used for?
+  options:
+  - id: a
+    text: To download the package from the registry.
+    explanation: Not correct. A purl identifies a package. It is not a download link.
+  - id: b
+    text: To store the checksum of the image.
+    explanation: Not correct. Checksums have their own fields.
+  - id: c
+    text: To point to the license text.
+    explanation: Not correct. License text is not part of a purl.
+  - id: d
+    text: To name a package, its ecosystem and its version in one standard string.
+    explanation: Correct. A purl is the same in every tool, so tools use it to match
+      packages with advisories.
+  correct_option: d
+  explanation: Correct. A purl is the same in every tool, so tools use it to match
+    packages with advisories.
+- id: ats102-020-m02-q05
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Interpret NOASSERTION
+  source_readings:
+  - sections/section-020/module-02/course-02-packages-versions-licenses-and-purls.md
+  prompt: A package has `licenseDeclared` set to `NOASSERTION`. What does that mean?
+  options:
+  - id: a
+    text: The license is not stated.
+    explanation: Correct. `NOASSERTION` is the SPDX word for "not stated".
+  - id: b
+    text: The package has no license at all.
+    explanation: Not correct. It means that no license was stated, not that none exists.
+  - id: c
+    text: The package is not open source.
+    explanation: Not correct. It says nothing about the source code.
+  - id: d
+    text: The license check failed.
+    explanation: Not correct. It is not an error.
+  correct_option: a
+  explanation: Correct. `NOASSERTION` is the SPDX word for "not stated".
+- id: ats102-020-m02-q06
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Join an SBOM and a report
+  source_readings:
+  - sections/section-020/module-02/course-02-packages-versions-licenses-and-purls.md
+  prompt: Why can the same SBOM answer a question after a new advisory, while the
+    old vulnerability report cannot?
+  options:
+  - id: a
+    text: The SBOM is rewritten every day.
+    explanation: Not correct. An SBOM describes one digest and does not change.
+  - id: b
+    text: The SBOM lists every package, and the old report lists only flaws known
+      at scan time.
+    explanation: Correct. The package list stays true, so you can match it against
+      new advisories.
+  - id: c
+    text: The SBOM contains the new CVE ids.
+    explanation: Not correct. The SBOM has no CVE ids.
+  - id: d
+    text: The report is deleted when the database changes.
+    explanation: Not correct. Reports are kept until a new scan replaces them.
+  correct_option: b
+  explanation: Correct. The package list stays true, so you can match it against new
+    advisories.
+- id: ats102-020-m02-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Match a package exactly
+  source_readings:
+  - sections/section-020/module-02/course-03-find-a-package-across-artifacts.md
+  prompt: You search SBOMs for `curl`. Which filter avoids matching `libcurl`?
+  options:
+  - id: a
+    text: '`select(.name | contains("curl"))`'
+    explanation: Not correct. `contains` also matches `libcurl`.
+  - id: b
+    text: '`select(.name | test("curl"))`'
+    explanation: Not correct. A regular expression without anchors also matches `libcurl`.
+  - id: c
+    text: '`select(.name == "curl")`'
+    explanation: Correct. An exact comparison matches the name `curl` only.
+  - id: d
+    text: "`select(.versionInfo != null)`"
+    explanation: Not correct. This filter selects by version, not by name.
+  correct_option: c
+  explanation: Correct. An exact comparison matches the name `curl` only.
+- id: ats102-020-m02-q08
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Use labels
+  source_readings:
+  - sections/section-020/module-02/course-03-find-a-package-across-artifacts.md
+  prompt: What does a Harbor label on an artifact do?
+  options:
+  - id: a
+    text: It blocks pulls of the artifact.
+    explanation: Not correct. Labels do not enforce anything.
+  - id: b
+    text: It changes the digest of the artifact.
+    explanation: Not correct. Labels do not change content.
+  - id: c
+    text: It starts a new scan.
+    explanation: Not correct. Labels do not trigger scans.
+  - id: d
+    text: It records a short fact with the artifact, visible in the portal and the
+      API.
+    explanation: Correct. A label is metadata that stays with the artifact.
+  correct_option: d
+  explanation: Correct. A label is metadata that stays with the artifact.
+- id: ats102-020-m02-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Describe the SBOM accessory
+  source_readings:
+  - sections/section-020/module-02/course-04-the-life-of-an-sbom-accessory.md
+  prompt: What does an SBOM accessory describe?
+  options:
+  - id: a
+    text: One digest of the artifact.
+    explanation: Correct. The subject of an accessory is a digest. A tag that moves
+      has a different digest and no SBOM.
+  - id: b
+    text: A tag, and it follows the tag when the tag moves.
+    explanation: Not correct. A tag can move, the digest cannot.
+  - id: c
+    text: All versions of the repository.
+    explanation: Not correct. The accessory belongs to one artifact, not to the repository.
+  - id: d
+    text: The whole project.
+    explanation: Not correct. The accessory belongs to one artifact, not to the project.
+  correct_option: a
+  explanation: Correct. The subject of an accessory is a digest. A tag that moves
+    has a different digest and no SBOM.
+- id: ats102-020-m02-q10
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Check that an SBOM matches the image
+  source_readings:
+  - sections/section-020/module-02/course-04-the-life-of-an-sbom-accessory.md
+  prompt: How do you check that an SBOM describes the image a tag points at now?
+  options:
+  - id: a
+    text: Compare the creation time of the SBOM with the push time.
+    explanation: Not correct. Times can be close and still describe different images.
+  - id: b
+    text: Compare the digest of the tag with `subject_artifact_digest` of the accessory.
+    explanation: Correct. The accessory records the digest it describes.
+  - id: c
+    text: Compare the size of the SBOM with the image.
+    explanation: Not correct. Sizes say nothing about the subject.
+  - id: d
+    text: Read the `name` field of the document.
+    explanation: Not correct. The name does not identify a digest.
+  correct_option: b
+  explanation: Correct. The accessory records the digest it describes.

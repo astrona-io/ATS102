@@ -1,0 +1,250 @@
+# Knowledge check for module 02 of section 030. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats102-030-m02
+course_id: ATS102
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam
+  questions.
+scope:
+  type: module
+  id: section-030-module-02
+  title: Signature Annotations, Attestations And Key Rotation
+placement:
+  position: after
+  reading: sections/section-030/module-02/course-05-summary.md
+questions:
+- id: ats102-030-m02-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Say what a signature proves
+  source_readings:
+  - sections/section-030/module-02/course-01-what-a-signature-proves.md
+  prompt: What does a successful `cosign verify --key` prove?
+  options:
+  - id: a
+    text: A signature for the digest exists, the matching key made it, and the data
+      is unchanged.
+    explanation: Correct. A check covers the key, the digest and the integrity of
+      the signed data.
+  - id: b
+    text: The image has no known vulnerabilities.
+    explanation: Not correct. Signatures say nothing about vulnerabilities.
+  - id: c
+    text: The image was reviewed by the security team.
+    explanation: Not correct. A review would need a claim or attestation.
+  - id: d
+    text: The tag will never point at another image.
+    explanation: Not correct. Tags can still move.
+  correct_option: a
+  explanation: Correct. A check covers the key, the digest and the integrity of the
+    signed data.
+- id: ats102-030-m02-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Place the trust anchor
+  source_readings:
+  - sections/section-030/module-02/course-01-what-a-signature-proves.md
+  prompt: Where should the public key used for `cosign verify` come from?
+  options:
+  - id: a
+    text: From the registry that holds the image.
+    explanation: Not correct. An attacker who controls the registry can swap the key.
+  - id: b
+    text: From a source you control, such as your own repository or secret store.
+    explanation: Correct. A key taken from the place that an attacker may control
+      proves nothing.
+  - id: c
+    text: From the image's labels.
+    explanation: Not correct. Labels are part of the image.
+  - id: d
+    text: From the signature itself.
+    explanation: Not correct. The signature does not carry a key to trust.
+  correct_option: b
+  explanation: Correct. A key taken from the place that an attacker may control proves
+    nothing.
+- id: ats102-030-m02-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Add an annotation
+  source_readings:
+  - sections/section-030/module-02/course-02-annotations-and-more-than-one-signer.md
+  prompt: Which `cosign sign` flag adds the annotation `approved-by=security`?
+  options:
+  - id: a
+    text: "`--label approved-by=security`"
+    explanation: Not correct. `--label` is not a Cosign signing flag.
+  - id: b
+    text: "`--tag approved-by=security`"
+    explanation: Not correct. `--tag` is not a Cosign signing flag.
+  - id: c
+    text: "`-a approved-by=security`"
+    explanation: Correct. `-a key=value` adds an annotation to the signed payload.
+  - id: d
+    text: "`--note approved-by=security`"
+    explanation: Not correct. `--note` is not a Cosign signing flag.
+  correct_option: c
+  explanation: Correct. `-a key=value` adds an annotation to the signed payload.
+- id: ats102-030-m02-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Require an annotation
+  source_readings:
+  - sections/section-030/module-02/course-02-annotations-and-more-than-one-signer.md
+  prompt: Which command accepts only signatures that carry the annotation `built-by=ci`?
+  options:
+  - id: a
+    text: "`cosign verify --key cosign.pub IMAGE`"
+    explanation: Not correct. Without `-a`, no annotation is checked.
+  - id: b
+    text: "`cosign tree IMAGE`"
+    explanation: Not correct. `cosign tree` lists what is attached.
+  - id: c
+    text: "`cosign sign --key cosign.key IMAGE`"
+    explanation: Not correct. `cosign sign` creates signatures.
+  - id: d
+    text: "`cosign verify --key cosign.pub -a built-by=ci IMAGE`"
+    explanation: Correct. With `-a`, Cosign accepts only signatures whose payload
+      has that annotation.
+  correct_option: d
+  explanation: Correct. With `-a`, Cosign accepts only signatures whose payload has
+    that annotation.
+- id: ats102-030-m02-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Add a second signer
+  source_readings:
+  - sections/section-030/module-02/course-02-annotations-and-more-than-one-signer.md
+  prompt: You sign a digest with a second key. What happens to the first signature?
+  options:
+  - id: a
+    text: It stays, and both verify with their own public keys.
+    explanation: Correct. Each signature is its own accessory.
+  - id: b
+    text: It is replaced by the new signature.
+    explanation: Not correct. Signing does not remove other signatures.
+  - id: c
+    text: It is marked as expired.
+    explanation: Not correct. Signatures have no expiry.
+  - id: d
+    text: Harbor refuses the second signature.
+    explanation: Not correct. Harbor stores many signatures per artifact.
+  correct_option: a
+  explanation: Correct. Each signature is its own accessory.
+- id: ats102-030-m02-q06
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Name the attestation parts
+  source_readings:
+  - sections/section-030/module-02/course-03-attestations.md
+  prompt: Which three parts does an in-toto attestation envelope hold?
+  options:
+  - id: a
+    text: Key, password and tag.
+    explanation: Not correct. Keys are not part of the envelope.
+  - id: b
+    text: Subject, predicate type and predicate.
+    explanation: Correct. The statement names the artifact, the kind of claim and
+      the data of the claim.
+  - id: c
+    text: Layer, manifest and config.
+    explanation: Not correct. Those are parts of an image.
+  - id: d
+    text: Issuer, identity and certificate.
+    explanation: Not correct. Those are used in keyless signing.
+  correct_option: b
+  explanation: Correct. The statement names the artifact, the kind of claim and the
+    data of the claim.
+- id: ats102-030-m02-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Verify an attestation
+  source_readings:
+  - sections/section-030/module-02/course-03-attestations.md
+  prompt: Which option do you add to `cosign verify-attestation` so it checks your
+    own predicate type?
+  options:
+  - id: a
+    text: "`--annotation custom`"
+    explanation: Not correct. Annotations belong to signatures.
+  - id: b
+    text: "`--format custom`"
+    explanation: Not correct. `--format` is not the predicate type.
+  - id: c
+    text: "`--type custom`"
+    explanation: Correct. `--type` names the predicate type that Cosign checks.
+  - id: d
+    text: "`--output custom`"
+    explanation: Not correct. `--output` is not the predicate type.
+  correct_option: c
+  explanation: Correct. `--type` names the predicate type that Cosign checks.
+- id: ats102-030-m02-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know what Harbor enforces
+  source_readings:
+  - sections/section-030/module-02/course-03-attestations.md
+  prompt: What does the project setting that refuses unsigned artifacts check?
+  options:
+  - id: a
+    text: That an attestation exists.
+    explanation: Not correct. Harbor does not read attestations.
+  - id: b
+    text: That the predicate says `passed`.
+    explanation: Not correct. Harbor does not read predicates.
+  - id: c
+    text: That the signature carries an annotation.
+    explanation: Not correct. Harbor does not check annotations.
+  - id: d
+    text: That a signature exists.
+    explanation: Correct. Harbor checks for a signature. The consumer decides what
+      to do with attestations and annotations.
+  correct_option: d
+  explanation: Correct. Harbor checks for a signature. The consumer decides what to
+    do with attestations and annotations.
+- id: ats102-030-m02-q09
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Rotate a key safely
+  source_readings:
+  - sections/section-030/module-02/course-04-keys-keyless-and-rotation.md
+  prompt: What is the safe order to rotate a signing key?
+  options:
+  - id: a
+    text: Sign with the new key, let consumers trust both, then retire the old key.
+    explanation: Correct. An overlap means nothing stops verifying during the change.
+  - id: b
+    text: Delete the old key and sign everything again.
+    explanation: Not correct. Artifacts signed only with the old key stop verifying.
+  - id: c
+    text: Replace the public key in all clusters at once.
+    explanation: Not correct. A one-step change breaks artifacts that are still running.
+  - id: d
+    text: Keep both keys trusted forever.
+    explanation: Not correct. Trusting an old key after a leak is the hole.
+  correct_option: a
+  explanation: Correct. An overlap means nothing stops verifying during the change.
+- id: ats102-030-m02-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Describe keyless signing
+  source_readings:
+  - sections/section-030/module-02/course-04-keys-keyless-and-rotation.md
+  prompt: What does keyless signing use instead of a long-lived private key?
+  options:
+  - id: a
+    text: A key stored in Harbor.
+    explanation: Not correct. Harbor does not hold signing keys.
+  - id: b
+    text: A short-lived certificate tied to an identity, with the signature recorded
+      in a public log.
+    explanation: Correct. Fulcio issues the certificate and Rekor records the signature.
+  - id: c
+    text: A shared password.
+    explanation: Not correct. A password is not an identity proof.
+  - id: d
+    text: The robot account secret.
+    explanation: Not correct. Robot secrets are for registry access.
+  correct_option: b
+  explanation: Correct. Fulcio issues the certificate and Rekor records the signature.

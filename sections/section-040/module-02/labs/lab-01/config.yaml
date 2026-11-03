@@ -1,0 +1,60 @@
+# Create A Pull-Only Robot And Protect Release Tags
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-102-lab-040-02"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm, Harbor 2.15.4 and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-102-lab-040-02-setup"
+      description: "Creates the starting state the task works from"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until every Harbor component reports healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+validation:
+  scripts:
+    - name: "validate-robot-pull-only"
+      description: "A pull-only robot account ci-pull exists and expires in about 30 days"
+      type: "file"
+      source: "validation/validate-robot-pull-only.sh"
+    - name: "validate-robot-secret-saved"
+      description: "The robot secret works"
+      type: "file"
+      source: "validation/validate-robot-secret-saved.sh"
+    - name: "validate-immutable-rule"
+      description: "Tags that start with 6. are immutable in inventory"
+      type: "file"
+      source: "validation/validate-immutable-rule.sh"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - alpine:3.22
+      - docker.io/goharbor/harbor-core:v2.15.4
+      - docker.io/goharbor/harbor-db:v2.15.4
+      - docker.io/goharbor/harbor-jobservice:v2.15.4
+      - docker.io/goharbor/harbor-portal:v2.15.4
+      - docker.io/goharbor/harbor-registryctl:v2.15.4
+      - docker.io/goharbor/nginx-photon:v2.15.4
+      - docker.io/goharbor/registry-photon:v2.15.4
+      - docker.io/goharbor/trivy-adapter-photon:v2.15.4
+      - docker.io/valkey/valkey:8.1.10-alpine

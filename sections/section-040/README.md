@@ -13,6 +13,9 @@ Real teams also need exceptions. A finding may not apply to how the image is use
 - Why an image index passes the check and its platform images do not.
 - System and project CVE allowlists, how a project chooses between them, and what an expiry does.
 - Building a narrow allowlist from a report with `jq`.
+- Pull-only robot accounts with an expiry, and how to refresh or disable them.
+- Reading refusals by HTTP status: 401, 403, 404 and 412.
+- Tag immutability rules, and a pipeline gate script that fails closed.
 
 ## The learning path
 
@@ -23,6 +26,16 @@ The module starts at its landing page, which also launches the playground. The p
 1. Preventing Vulnerable Images From Running
 2. CVE Allowlists With An Expiry, followed by the lab **Block High Risk, Allow A Reviewed Exception**
 3. Summary
+
+### 2. Robot Accounts And Immutable Tags
+
+The module starts at its landing page, which also launches the playground. The playground holds Harbor with the project `inventory` and `podinfo:6.15.0`, without a robot account or an immutability rule.
+
+1. Robot Accounts
+2. Using A Robot And Reading Refusals
+3. Immutable Tags, followed by the lab **Create A Pull-Only Robot And Protect Release Tags**
+4. A Pipeline Gate
+5. Summary
 
 ## Section capstone: Tighten A Project That Lets Everything Through
 

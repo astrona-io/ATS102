@@ -1,4 +1,4 @@
-# Final domain knowledge check across all four sections.
+# Final domain knowledge check across all four sections, including module 02 of each.
 schema_version: 1
 kind: question_bank
 id: ats102-final
@@ -289,3 +289,186 @@ questions:
     explanation: Correct. Each property limits the damage if it is forgotten.
   correct_option: d
   explanation: Correct. Each property limits the damage if it is forgotten.
+- id: ats102-final-q13
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Change Trivy adapter settings
+  source_readings:
+  - sections/section-010/module-02/course-02-configuring-the-trivy-adapter.md
+  prompt: How do you make the built-in Trivy adapter ignore vulnerabilities that have
+    no fixed version?
+  options:
+  - id: a
+    text: Add a CVE allowlist entry for every unfixed finding.
+    explanation: Not correct. An allowlist is a per-CVE decision for pulls, not a
+      report setting for the scanner.
+  - id: b
+    text: Turn on scan on push for the project.
+    explanation: Not correct. Scan on push controls when scans start, not what they
+      report.
+  - id: c
+    text: Set `SCANNER_TRIVY_IGNORE_UNFIXED=true` on the `harbor-trivy` StatefulSet.
+    explanation: Correct. The adapter reads its behaviour from `SCANNER_TRIVY_*` variables.
+  - id: d
+    text: Lower the severity filter in the project settings.
+    explanation: Not correct. The project severity setting controls pull prevention,
+      not the report content.
+  correct_option: c
+  explanation: Correct. The adapter reads its behaviour from `SCANNER_TRIVY_*` variables.
+- id: ats102-final-q14
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Stop a scan
+  source_readings:
+  - sections/section-010/module-02/course-04-scan-states-and-logs.md
+  prompt: What is the scan state after you stop a running scan with the API?
+  options:
+  - id: a
+    text: "`Error`"
+    explanation: Not correct. `Error` is for a failed scan, not a stopped one.
+  - id: b
+    text: "`Stopped`"
+    explanation: Correct. Stopping a scan ends it with the state `Stopped`.
+  - id: c
+    text: "`Success`"
+    explanation: Not correct. `Success` means a complete report.
+  - id: d
+    text: "`None`"
+    explanation: Not correct. `None` is the state of an artifact that was never scanned.
+  correct_option: b
+  explanation: Correct. Stopping a scan ends it with the state `Stopped`.
+- id: ats102-final-q15
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read dataLicense correctly
+  source_readings:
+  - sections/section-020/module-02/course-01-structure-of-an-spdx-document.md
+  prompt: What does the `dataLicense` field of an SPDX document state?
+  options:
+  - id: a
+    text: The license of the scanned image.
+    explanation: Not correct. The licenses of the software are in the package entries.
+  - id: b
+    text: The license of the most common package.
+    explanation: Not correct. There is no field that summarises the packages.
+  - id: c
+    text: The license of the SBOM file itself.
+    explanation: Correct. `dataLicense` covers the document and not the software it
+      lists.
+  - id: d
+    text: The license of the scanner.
+    explanation: Not correct. The scanner's license is not recorded here.
+  correct_option: c
+  explanation: Correct. `dataLicense` covers the document and not the software it
+    lists.
+- id: ats102-final-q16
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Check that an SBOM matches the image
+  source_readings:
+  - sections/section-020/module-02/course-04-the-life-of-an-sbom-accessory.md
+  prompt: How do you check that an SBOM describes the image a tag points at now?
+  options:
+  - id: a
+    text: Compare the creation time of the SBOM with the push time.
+    explanation: Not correct. Times can be close and still describe different images.
+  - id: b
+    text: Compare the digest of the tag with `subject_artifact_digest` of the accessory.
+    explanation: Correct. The accessory records the digest it describes.
+  - id: c
+    text: Compare the size of the SBOM with the image.
+    explanation: Not correct. Sizes say nothing about the subject.
+  - id: d
+    text: Read the `name` field of the document.
+    explanation: Not correct. The name does not identify a digest.
+  correct_option: b
+  explanation: Correct. The accessory records the digest it describes.
+- id: ats102-final-q17
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Add an annotation
+  source_readings:
+  - sections/section-030/module-02/course-02-annotations-and-more-than-one-signer.md
+  prompt: Which `cosign sign` flag adds the annotation `approved-by=security`?
+  options:
+  - id: a
+    text: "`--label approved-by=security`"
+    explanation: Not correct. `--label` is not a Cosign signing flag.
+  - id: b
+    text: "`--tag approved-by=security`"
+    explanation: Not correct. `--tag` is not a Cosign signing flag.
+  - id: c
+    text: "`-a approved-by=security`"
+    explanation: Correct. `-a key=value` adds an annotation to the signed payload.
+  - id: d
+    text: "`--note approved-by=security`"
+    explanation: Not correct. `--note` is not a Cosign signing flag.
+  correct_option: c
+  explanation: Correct. `-a key=value` adds an annotation to the signed payload.
+- id: ats102-final-q18
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Describe keyless signing
+  source_readings:
+  - sections/section-030/module-02/course-04-keys-keyless-and-rotation.md
+  prompt: What does keyless signing use instead of a long-lived private key?
+  options:
+  - id: a
+    text: A key stored in Harbor.
+    explanation: Not correct. Harbor does not hold signing keys.
+  - id: b
+    text: A short-lived certificate tied to an identity, with the signature recorded
+      in a public log.
+    explanation: Correct. Fulcio issues the certificate and Rekor records the signature.
+  - id: c
+    text: A shared password.
+    explanation: Not correct. A password is not an identity proof.
+  - id: d
+    text: The robot account secret.
+    explanation: Not correct. Robot secrets are for registry access.
+  correct_option: b
+  explanation: Correct. Fulcio issues the certificate and Rekor records the signature.
+- id: ats102-final-q19
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Handle the robot secret
+  source_readings:
+  - sections/section-040/module-02/course-01-robot-accounts.md
+  prompt: A pipeline lost the secret of its robot. What is the right fix?
+  options:
+  - id: a
+    text: Read the secret from the robot listing.
+    explanation: Not correct. The listing never shows the secret.
+  - id: b
+    text: Ask Harbor to show the secret again.
+    explanation: Not correct. Harbor cannot show it again.
+  - id: c
+    text: Refresh the secret of the robot and store the new one.
+    explanation: Correct. Harbor shows the secret once, so you replace it.
+  - id: d
+    text: Use the administrator password.
+    explanation: Not correct. That gives the pipeline more rights than it needs.
+  correct_option: c
+  explanation: Correct. Harbor shows the secret once, so you replace it.
+- id: ats102-final-q20
+  type: single_choice
+  difficulty: advanced
+  learning_objective: Write a safe gate
+  source_readings:
+  - sections/section-040/module-02/course-04-a-pipeline-gate.md
+  prompt: A gate script cannot reach Harbor. What should it do?
+  options:
+  - id: a
+    text: Print a warning and exit `0`.
+    explanation: Not correct. That passes everything during an outage.
+  - id: b
+    text: Exit with a failure, so the pipeline stops.
+    explanation: Correct. A gate must fail closed when it cannot decide.
+  - id: c
+    text: Retry forever.
+    explanation: Not correct. A pipeline that never ends blocks the team.
+  - id: d
+    text: Pass if the last run passed.
+    explanation: Not correct. An old result says nothing about the current artifact.
+  correct_option: b
+  explanation: Correct. A gate must fail closed when it cannot decide.

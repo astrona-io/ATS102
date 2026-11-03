@@ -13,6 +13,9 @@ This section shows how Harbor works with signatures. You sign an artifact with *
 - Creating a Cosign key pair, signing an artifact by its digest, and verifying the signature.
 - Signing without the public transparency log in a private environment.
 - Making a project refuse unsigned artifacts, and reading Harbor's refusal.
+- What a passing `cosign verify` proves and what it leaves open.
+- Signature annotations, and more than one signer on one artifact.
+- Attestations, key hygiene, keyless signing and key rotation.
 
 ## The learning path
 
@@ -24,6 +27,16 @@ The module starts at its landing page, which also launches the playground. The p
 2. Signing And Verifying With Cosign
 3. Making A Project Refuse Unsigned Artifacts, followed by the lab **Allow Only Signed Releases**
 4. Summary
+
+### 2. Signature Annotations, Attestations And Key Rotation
+
+The module starts at its landing page, which also launches the playground. The playground holds Harbor with the project `release`, `podinfo:6.14.1` and `podinfo:6.15.0` signed with a build key, and a second key pair for the security team.
+
+1. What A Signature Proves
+2. Annotations And More Than One Signer, followed by the lab **Add A Second Signature With An Annotation**
+3. Attestations
+4. Keys, Keyless Signing And Rotation
+5. Summary
 
 ## Section capstone: Lock Down A Release Project
 

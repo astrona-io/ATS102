@@ -26,10 +26,10 @@ section contains:
 
 | Section | Title | Modules | Labs | Topic |
 | --- | --- | --- | --- | --- |
-| [010](sections/section-010) | Vulnerability Scanning With Trivy | 1 | 1 + capstone | Scanning |
-| [020](sections/section-020) | Software Bills Of Materials | 1 | 1 + capstone | SBOM |
-| [030](sections/section-030) | Signing With Cosign And Enforcing Signatures | 1 | 1 + capstone | Content trust |
-| [040](sections/section-040) | Blocking Vulnerable Artifacts And CVE Allowlists | 1 | 1 + capstone | Deployment security |
+| [010](sections/section-010) | Vulnerability Scanning With Trivy | 2 | 2 + capstone | Scanning |
+| [020](sections/section-020) | Software Bills Of Materials | 2 | 2 + capstone | SBOM |
+| [030](sections/section-030) | Signing With Cosign And Enforcing Signatures | 2 | 2 + capstone | Content trust |
+| [040](sections/section-040) | Blocking Vulnerable Artifacts And CVE Allowlists | 2 | 2 + capstone | Deployment security |
 
 The order follows a release: first find what is wrong (scan), then record
 what is inside (SBOM), then prove where it came from (sign), and last refuse
@@ -42,9 +42,13 @@ what is not safe (block).
 | Module | Reader | Parts | Labs |
 | --- | --- | --- | --- |
 | 010-01 | [Scan Artifacts For Vulnerabilities With Trivy](sections/section-010/module-01/course.md) | 3 | [lab-01](sections/section-010/module-01/labs/lab-01) |
+| 010-02 | [Configure Trivy And Read Findings In Depth](sections/section-010/module-02/course.md) | 4 | [lab-01](sections/section-010/module-02/labs/lab-01) |
 | 020-01 | [Generate And Read Software Bills Of Materials](sections/section-020/module-01/course.md) | 2 | [lab-01](sections/section-020/module-01/labs/lab-01) |
+| 020-02 | [Read And Use The Content Of An SBOM](sections/section-020/module-02/course.md) | 4 | [lab-01](sections/section-020/module-02/labs/lab-01) |
 | 030-01 | [Sign Artifacts With Cosign And Enforce Signatures](sections/section-030/module-01/course.md) | 3 | [lab-01](sections/section-030/module-01/labs/lab-01) |
+| 030-02 | [Signature Annotations, Attestations And Key Rotation](sections/section-030/module-02/course.md) | 4 | [lab-01](sections/section-030/module-02/labs/lab-01) |
 | 040-01 | [Stop Vulnerable Artifacts From Being Pulled](sections/section-040/module-01/course.md) | 2 | [lab-01](sections/section-040/module-01/labs/lab-01) |
+| 040-02 | [Robot Accounts And Immutable Tags](sections/section-040/module-02/course.md) | 4 | [lab-01](sections/section-040/module-02/labs/lab-01) |
 
 ---
 
@@ -74,7 +78,7 @@ Example content comes from `ghcr.io/stefanprodan/podinfo` (6.0.0, 6.14.1,
 6.15.0), always copied for `linux/amd64` only, so that Harbor's deployment
 security checks the image itself and not an image index.
 
-The plumbing of all twelve environments (install, seed, solution, testing and
+The plumbing of all twenty environments (install, seed, solution, testing and
 validation scripts, `config.yaml` files, author READMEs and prerequisites)
 shares one helper block. Change a helper in every environment at once.
 
