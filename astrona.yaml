@@ -13,7 +13,7 @@
 training:
   id: ATS102
   title: "Harbor: Content Trust, Vulnerability Scanning & SBOMs"
-  maturity: draft
+  maturity: alpha
   description: >
     Training material covering the Content Trust, Vulnerability Scanning &
     SBOMs domain of the Harbor training path: scanning artifacts with the
