@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://astrona.io/courses/harbor">
+    <img src="https://astrona.io/courses/harbor/domains/ATS102.svg" alt="ATS102: Content Trust, Vulnerability Scanning & SBOMs, part of the Harbor course on Astrona" width="100%">
+  </a>
+</p>
+
 # ATS102 — Content Trust, Vulnerability Scanning & SBOMs (Harbor)
 
 Course material for the **Content Trust, Vulnerability Scanning & SBOMs**
